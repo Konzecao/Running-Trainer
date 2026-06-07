@@ -801,7 +801,7 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
   </div>
   <div class="sb-nav">
     <button class="sb-btn active" id="sb-today" onclick="switchView('today')">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="1.8"/><path d="M5.5 21 L8.5 14 L11.5 16 L14.5 10 L18.5 13"/><path d="M8.5 14 L7 10 L10.5 8.5"/><path d="M14.5 10 L16 7 L12.5 6"/></svg>
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="4" r="2" fill="currentColor" stroke="none"/><line x1="14" y1="6" x2="11.5" y2="13"/><line x1="13" y1="9" x2="18.5" y2="7"/><line x1="13" y1="9" x2="8" y2="11.5"/><polyline points="11.5,13 15.5,18 19.5,21"/><polyline points="11.5,13 7.5,18 4.5,21"/></svg>
       Training
     </button>
     <button class="sb-btn" id="sb-stats" onclick="switchView('stats')">
@@ -822,7 +822,7 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
 <!-- ── BOTTOM NAV ─────────────────────────────────── -->
 <nav id="bottom-nav">
   <button class="nav-btn active" id="nav-today" onclick="switchView('today')">
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="1.8"/><path d="M5.5 21 L8.5 14 L11.5 16 L14.5 10 L18.5 13"/><path d="M8.5 14 L7 10 L10.5 8.5"/><path d="M14.5 10 L16 7 L12.5 6"/></svg>
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="4" r="2" fill="currentColor" stroke="none"/><line x1="14" y1="6" x2="11.5" y2="13"/><line x1="13" y1="9" x2="18.5" y2="7"/><line x1="13" y1="9" x2="8" y2="11.5"/><polyline points="11.5,13 15.5,18 19.5,21"/><polyline points="11.5,13 7.5,18 4.5,21"/></svg>
     Training
   </button>
   <button class="nav-btn" id="nav-stats" onclick="switchView('stats')">
@@ -1048,6 +1048,12 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
     <div class="modal-footer" style="flex-direction:column;gap:8px">
       <button class="btn btn-primary" style="width:100%" onclick="saveSetup()">Verbinden & Sync testen</button>
       <button class="btn btn-ghost" style="width:100%;text-align:center" onclick="closeSetupModal()">Später einrichten (nur lokal)</button>
+      <div style="border-top:1px solid var(--border);margin-top:4px;padding-top:12px">
+        <div style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:8px;letter-spacing:0.03em;text-transform:uppercase;font-weight:600">Gefahrenzone</div>
+        <button class="btn" style="width:100%;background:rgba(240,69,69,0.12);color:#f04545;border:1px solid rgba(240,69,69,0.25);font-size:13px" onclick="resetAllData()">
+          ⚠ Alle Trainingsdaten löschen (Werkseinstellung)
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -1731,23 +1737,22 @@ function saveEntry(){
   const pace=document.getElementById('inp-pace').value.trim()||null;
   const notes=document.getElementById('inp-notes').value.trim()||null;
   const s=state[modalEntry.date]||{};
-  if(km)s.istKm=km;else delete s.istKm;
-  if(pace)s.pace=pace;else delete s.pace;
-  if(selectedRpe)s.rpe=selectedRpe;else delete s.rpe;
-  if(notes)s.notes=notes;else delete s.notes;
+  if(km)s.istKm=km;else s.istKm=null;
+  if(pace)s.pace=pace;else s.pace=null;
+  if(selectedRpe)s.rpe=selectedRpe;else s.rpe=null;
+  if(notes)s.notes=notes;else s.notes=null;
   if(km||pace||notes||selectedRpe)s.done=true;
   state[modalEntry.date]=s;
-  // save extras (filter empty)
+  // save extras (filter empty) — use [] not delete so remote sync propagates deletions
   const cleanExtras=modalExtras.filter(e=>e.type||e.km||e.notes);
-  if(cleanExtras.length)state['extras_d'+modalEntry.date]=cleanExtras;
-  else delete state['extras_d'+modalEntry.date];
+  state['extras_d'+modalEntry.date]=cleanExtras.length?cleanExtras:[];
   saveLocal();pushToGist();closeWorkoutModal();renderAll();
   showToast('Gespeichert ✓');
 }
 function removeEntry(){
   if(!modalEntry)return;
-  delete state[modalEntry.date];
-  delete state['extras_d'+modalEntry.date];
+  state[modalEntry.date]=null;          // null propagates deletion via sync merge
+  state['extras_d'+modalEntry.date]=[];  // [] propagates deletion via sync merge
   saveLocal();pushToGist();closeWorkoutModal();renderAll();
   showToast('Eintrag gelöscht');
 }
@@ -1760,6 +1765,16 @@ function openSetup(){
   document.getElementById('setup-modal').classList.add('open');
 }
 function closeSetupModal(){document.getElementById('setup-modal').classList.remove('open');}
+function resetAllData(){
+  if(!confirm('Alle Trainingsdaten wirklich löschen?\n\nDas betrifft alle eingetragenen km, Zeiten, Notizen, Zusatzaktivitäten und Häkchen — auf allen Geräten.\n\nDieser Vorgang kann nicht rückgängig gemacht werden.'))return;
+  state={};
+  saveLocal();
+  pushToGist();
+  activeWeek=getCurrentWeek();
+  closeSetupModal();
+  renderAll();
+  showToast('Alle Daten zurückgesetzt ✓');
+}
 async function saveSetup(){
   syncPat=document.getElementById('setup-pat').value.trim();
   syncGistId=document.getElementById('setup-gist').value.trim();
@@ -1797,7 +1812,7 @@ function exportCSV(){
 // ── PWA SERVICE WORKER ────────────────────────────
 if('serviceWorker' in navigator){
   const sw=`
-const CACHE='hm-tracker-v1';
+const CACHE='hm-tracker-v2';
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['/']))));
 self.addEventListener('fetch',e=>{
   if(e.request.url.includes('api.github.com'))return;
@@ -1806,6 +1821,99 @@ self.addEventListener('fetch',e=>{
   const blob=new Blob([sw],{type:'application/javascript'});
   navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
 }
+
+// ── PWA ICON + MANIFEST ───────────────────────────
+(function(){
+  // Draw app icon on canvas → PNG data URL (works as apple-touch-icon + manifest icon)
+  const sz=512;
+  const cv=document.createElement('canvas');
+  cv.width=cv.height=sz;
+  const ctx=cv.getContext('2d');
+  const k=sz/512;
+
+  // Background with rounded corners
+  ctx.fillStyle='#020617';
+  ctx.beginPath();
+  const rad=100*k;
+  ctx.moveTo(rad,0);ctx.lineTo(sz-rad,0);ctx.quadraticCurveTo(sz,0,sz,rad);
+  ctx.lineTo(sz,sz-rad);ctx.quadraticCurveTo(sz,sz,sz-rad,sz);
+  ctx.lineTo(rad,sz);ctx.quadraticCurveTo(0,sz,0,sz-rad);
+  ctx.lineTo(0,rad);ctx.quadraticCurveTo(0,0,rad,0);
+  ctx.closePath();ctx.fill();
+
+  // Subtle accent band bottom
+  const g=ctx.createLinearGradient(0,0,sz,0);
+  g.addColorStop(0,'rgba(79,142,247,0.6)');g.addColorStop(1,'rgba(34,197,94,0.6)');
+  ctx.fillStyle=g;ctx.fillRect(0,sz-6,sz,6);
+
+  // Running figure
+  ctx.lineCap='round';ctx.lineJoin='round';
+
+  // Head
+  ctx.fillStyle='#4f8ef7';
+  ctx.beginPath();ctx.arc(308*k,106*k,46*k,0,Math.PI*2);ctx.fill();
+
+  // Body
+  ctx.strokeStyle='#4f8ef7';ctx.lineWidth=38*k;
+  ctx.beginPath();ctx.moveTo(308*k,152*k);
+  ctx.quadraticCurveTo(288*k,212*k,256*k,270*k);ctx.stroke();
+
+  // Right arm forward
+  ctx.lineWidth=28*k;
+  ctx.beginPath();ctx.moveTo(290*k,190*k);ctx.lineTo(372*k,152*k);ctx.stroke();
+
+  // Left arm back
+  ctx.beginPath();ctx.moveTo(290*k,190*k);ctx.lineTo(204*k,228*k);ctx.stroke();
+
+  // Left leg back (green)
+  ctx.strokeStyle='#22c55e';ctx.lineWidth=30*k;
+  ctx.beginPath();ctx.moveTo(256*k,270*k);
+  ctx.lineTo(194*k,362*k);ctx.lineTo(156*k,432*k);ctx.stroke();
+
+  // Right leg forward (blue)
+  ctx.strokeStyle='#4f8ef7';
+  ctx.beginPath();ctx.moveTo(256*k,270*k);
+  ctx.lineTo(330*k,348*k);ctx.lineTo(366*k,432*k);ctx.stroke();
+
+  // Speed dots left
+  [[148,218,10],[120,248,7],[148,276,5]].forEach(([x,y,r],i)=>{
+    ctx.fillStyle=`rgba(79,142,247,${0.5-i*0.13})`;
+    ctx.beginPath();ctx.arc(x*k,y*k,r*k,0,Math.PI*2);ctx.fill();
+  });
+
+  // "HM 26" label
+  ctx.fillStyle='rgba(79,142,247,0.45)';
+  ctx.font=`900 ${52*k}px "Arial Black",Impact,sans-serif`;
+  ctx.textAlign='center';ctx.textBaseline='alphabetic';
+  ctx.fillText('HM 2026',256*k,494*k);
+
+  const iconPNG=cv.toDataURL('image/png');
+
+  // Inject apple-touch-icon (iOS home screen)
+  const ati=document.createElement('link');
+  ati.rel='apple-touch-icon';ati.href=iconPNG;
+  document.head.appendChild(ati);
+
+  // Web App Manifest (enables install on Chrome/Edge on Mac + Android)
+  const manifest={
+    name:'HM Köln 2026 · Peter',
+    short_name:'HM Köln',
+    description:'Halbmarathon Training Tracker · 04.10.2026 · Ziel 1:30:00',
+    start_url:'./',
+    display:'standalone',
+    background_color:'#020617',
+    theme_color:'#020617',
+    orientation:'portrait-primary',
+    icons:[
+      {src:iconPNG,sizes:'512x512',type:'image/png',purpose:'any maskable'},
+      {src:iconPNG,sizes:'192x192',type:'image/png',purpose:'any'}
+    ]
+  };
+  const mb=new Blob([JSON.stringify(manifest)],{type:'application/manifest+json'});
+  const ml=document.createElement('link');
+  ml.rel='manifest';ml.href=URL.createObjectURL(mb);
+  document.head.appendChild(ml);
+})();
 
 // ── INIT ──────────────────────────────────────────
 loadLocal();
