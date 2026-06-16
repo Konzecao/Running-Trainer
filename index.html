@@ -115,7 +115,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .ic-pace{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(79,142,247,0.18)}
 .ic-rpe-easy{background:var(--green-dim);color:var(--green)}.ic-rpe-mod{background:var(--amber-dim);color:var(--amber)}.ic-rpe-hard{background:var(--red-dim);color:var(--red)}.ic-rpe-max{background:var(--purple-dim);color:var(--purple)}
 .ic-notes{background:var(--bg3);color:var(--muted);border:1px solid var(--border)}
-.done-check{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--faint);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s var(--ease);margin-top:2px}
+.done-check{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--faint);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s var(--ease);margin-top:-8px;margin-right:-8px;cursor:pointer}
 .done-check.checked{background:var(--green);border-color:var(--green)}
 .done-check.partial{background:var(--amber);border-color:var(--amber)}
 .done-check svg{width:12px;height:12px;color:#fff;opacity:0;transition:opacity 0.15s}
@@ -251,7 +251,7 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #sidebar{display:none}
 @media(min-width:640px){#main{padding:0 24px 32px}.hero-grid{grid-template-columns:repeat(4,1fr)}.stat-value{font-size:44px}.day-unit-name{font-size:16px}.week-table-row{grid-template-columns:38px 1fr 56px 56px 46px 46px 46px}}
-@media(min-width:1024px){#sidebar{display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;width:220px;z-index:110;background:rgba(4,9,20,0.97);border-right:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);padding-top:env(safe-area-inset-top)}.sb-brand{padding:20px 20px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.sb-brand .brand-icon{width:36px;height:36px;border-radius:10px;flex-shrink:0;overflow:hidden}.sb-brand .brand-icon img{width:100%;height:100%;object-fit:cover}.sb-brand-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;line-height:1.2;color:var(--text)}.sb-brand-sub{font-size:10px;color:var(--muted);font-weight:500;margin-top:1px;white-space:nowrap}.sb-nav{flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}.sb-btn{display:flex;align-items:center;gap:12px;width:100%;border:none;background:none;cursor:pointer;color:var(--muted);padding:10px 12px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;transition:all 0.15s var(--ease);text-align:left;-webkit-tap-highlight-color:transparent}.sb-btn svg{width:20px;height:20px;flex-shrink:0}.sb-btn:hover{background:rgba(255,255,255,0.05);color:var(--text)}.sb-btn.active{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(79,142,247,0.2)}.sb-divider{height:1px;background:rgba(255,255,255,0.06);margin:8px 10px}.sb-footer{padding:12px 14px;border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0}.sb-sync{display:flex;align-items:center;gap:6px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;color:var(--muted);padding:4px 6px;border-radius:8px;transition:background 0.15s}.sb-sync:hover{background:rgba(255,255,255,0.05)}.sb-week-chip{background:var(--blue-dim);border:1px solid rgba(79,142,247,0.3);color:var(--blue);padding:3px 11px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;white-space:nowrap;flex-shrink:0}#bottom-nav{display:none}body{padding-bottom:0}#app-header{display:none}#main{margin-left:220px;margin-top:0;max-width:none;padding:24px 40px 40px}#toast{bottom:24px}#view-stats{max-width:960px}.week-nav-bar{gap:12px}.week-nav-btn{padding:7px 16px;font-size:14px}}
+@media(min-width:1024px){#sidebar{display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;width:220px;z-index:110;background:rgba(4,9,20,0.97);border-right:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);padding-top:env(safe-area-inset-top)}.sb-brand{padding:20px 20px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.sb-brand .brand-icon{width:36px;height:36px;border-radius:10px;flex-shrink:0;overflow:hidden}.sb-brand .brand-icon img{width:100%;height:100%;object-fit:cover}.sb-brand-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;line-height:1.2;color:var(--text)}.sb-brand-sub{font-size:10px;color:var(--muted);font-weight:500;margin-top:1px;white-space:nowrap}.sb-nav{flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}.sb-btn{display:flex;align-items:center;gap:12px;width:100%;border:none;background:none;cursor:pointer;color:var(--muted);padding:10px 12px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;transition:all 0.15s var(--ease);text-align:left;-webkit-tap-highlight-color:transparent}.sb-btn svg{width:20px;height:20px;flex-shrink:0}.sb-btn:hover{background:rgba(255,255,255,0.05);color:var(--text)}.sb-btn.active{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(79,142,247,0.2)}.sb-divider{height:1px;background:rgba(255,255,255,0.06);margin:8px 10px}.sb-footer{padding:12px 14px;border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0}.sb-sync{display:flex;align-items:center;gap:6px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;color:var(--muted);padding:4px 6px;border-radius:8px;transition:background 0.15s}.sb-sync:hover{background:rgba(255,255,255,0.05)}.sb-week-chip{background:var(--blue-dim);border:1px solid rgba(79,142,247,0.3);color:var(--blue);padding:3px 11px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;white-space:nowrap;flex-shrink:0}#bottom-nav{display:none}#app-header{display:none}#main{margin-left:220px;margin-top:0;max-width:none;padding:24px 40px 40px}#toast{bottom:24px}#view-stats{max-width:960px}.week-nav-bar{gap:12px}.week-nav-btn{padding:7px 16px;font-size:14px}}
 </style>
 </head>
 <body>
@@ -282,7 +282,7 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
   </div>
   <div class="sb-nav">
     <button class="sb-btn active" id="sb-today" onclick="switchView('today')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="1.5" fill="currentColor" stroke="none"/><path d="M13 6l-2 5 3 2-2.5 5.5"/><path d="M11 11l-3 1.5"/><path d="M14 13l3-1.5"/><path d="M10.5 16.5l-2 4"/><path d="M13.5 16.5l2 4"/></svg>Training
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="3.5" r="1.5" fill="currentColor" stroke="none"/><path d="M12 7l-1.5 4h-3l1 1.5 2.5-.5 1 3-2.5 3.5"/><path d="M12 7l2 2.5 2.5-1"/><path d="M10.5 15.5l-1.5 3.5"/><path d="M12.5 15.5l2 3.5"/></svg>Training
     </button>
     <button class="sb-btn" id="sb-stats" onclick="switchView('stats')">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Stats
@@ -297,7 +297,7 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
 
 <nav id="bottom-nav">
   <button class="nav-btn active" id="nav-today" onclick="switchView('today')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="13" cy="4" r="1.5" fill="currentColor" stroke="none"/><path d="M13 6l-2 5 3 2-2.5 5.5"/><path d="M11 11l-3 1.5"/><path d="M14 13l3-1.5"/><path d="M10.5 16.5l-2 4"/><path d="M13.5 16.5l2 4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="14" cy="3.5" r="1.5" fill="currentColor" stroke="none"/><path d="M12 7l-1.5 4h-3l1 1.5 2.5-.5 1 3-2.5 3.5"/><path d="M12 7l2 2.5 2.5-1"/><path d="M10.5 15.5l-1.5 3.5"/><path d="M12.5 15.5l2 3.5"/></svg>
     Training
   </button>
   <button class="nav-btn" id="nav-stats" onclick="switchView('stats')">
@@ -355,7 +355,6 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
       <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--green)"></div>Komplett</div>
       <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--amber)"></div>Teilweise</div>
       <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--faint);opacity:0.5"></div>Offen</div>
-      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--bg3);border:1px solid var(--border)"></div>Zukunft</div>
     </div>
   </div>
   <div class="week-table-wrap">
@@ -413,7 +412,6 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
 <!-- WORKOUT MODAL -->
 <div class="modal-overlay" id="workout-modal" onclick="closeWorkoutOnOverlay(event)">
   <div class="modal-sheet" role="dialog" aria-modal="true">
-    <div class="modal-handle"></div>
     <div class="modal-header">
       <div class="modal-title-wrap"><div class="modal-title" id="modal-title">Einheit</div><div class="modal-subtitle" id="modal-subtitle"></div></div>
       <button class="modal-close-btn" onclick="closeWorkoutModal()">&#x2715;</button>
@@ -442,7 +440,6 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
 <!-- SETUP MODAL -->
 <div class="modal-overlay" id="setup-modal" style="align-items:center">
   <div class="modal-sheet" style="border-radius:var(--radius-lg);max-width:500px;margin:20px">
-    <div class="modal-handle"></div>
     <div class="modal-header">
       <div class="modal-title-wrap"><div class="modal-title">GitHub-Sync</div><div class="modal-subtitle">Daten auf allen Geräten synchronisieren</div></div>
       <button class="modal-close-btn" onclick="closeSetupModal()">&#x2715;</button>
@@ -515,7 +512,8 @@ function calcWeekStats(w){
   for(const e of weekEntries(w)){
     if(e.sollKm)soll+=e.sollKm;
     const s=state[e.date];
-    if(s?.istKm)ist+=parseFloat(s.istKm)||0;
+    if(s?.istKm){ist+=parseFloat(s.istKm)||0;}
+    else if(s?.done&&e.sollKm){ist+=e.sollKm;}// auto-fill wenn abgehakt aber kein km
     if(!isRest(e.unit)){total++;if(s?.done)done++;}
     for(const ex of(state['extras_d'+e.date]||[]))ist+=parseFloat(ex.km)||0;
   }
@@ -526,7 +524,9 @@ function calcTotals(){
   const countable=PLAN.filter(e=>!isRest(e.unit));
   for(const e of countable)if(state[e.date]?.done)unitsDone++;
   for(const e of PLAN){
-    if(state[e.date]?.istKm)totalIst+=parseFloat(state[e.date].istKm)||0;
+    const sd=state[e.date];
+    if(sd?.istKm){totalIst+=parseFloat(sd.istKm)||0;}
+    else if(sd?.done&&e.sollKm){totalIst+=e.sollKm;}// auto-fill
     if(e.sollKm)totalSoll+=e.sollKm;
     for(const ex of(state['extras_d'+e.date]||[]))totalIst+=parseFloat(ex.km)||0;
   }
@@ -594,7 +594,8 @@ function renderHeroStats(){
   document.getElementById('current-phase-sub').textContent=e?e.phase.replace(/\d+ · /,''):'—';
   const ps=parseDate(PLAN[0].date).getTime(),pe=parseDate(PLAN[PLAN.length-1].date).getTime(),now=today().getTime();
   const tp=Math.min(100,Math.max(0,Math.round((now-ps)/(pe-ps)*100)));
-  const pu=PLAN.filter(e=>!isRest(e.unit)&&parseDate(e.date).getTime()<=now);
+  // Only count past days (strictly before today) for done-percentage
+  const pu=PLAN.filter(e=>!isRest(e.unit)&&parseDate(e.date).getTime()<now);
   const dp=pu.length?Math.round(pu.filter(e=>state[e.date]?.done).length/pu.length*100):0;
   document.getElementById('progress-fill').style.width=tp+'%';
   document.getElementById('progress-pct-text').textContent=tp+'%';
@@ -659,8 +660,9 @@ function renderOverviewChart(chartId,infoId){
     const st=calcWeekStats(w),isCur=w===cw,isFut=w>cw,isSel=w===activeWeek;
     const sp=Math.round(st.soll/maxKm*100);
     const istCapped=st.soll>0?Math.min(st.ist,st.soll):st.ist;
-    const ip=st.soll>0?Math.round(istCapped/st.soll*sp):0;
-    const overPct=st.ist>st.soll&&st.soll>0?Math.round((st.ist-st.soll)/st.soll*sp):0;
+    const istFill=st.soll>0?Math.min(100,Math.round(istCapped/st.soll*100)):0;// % of soll bar height
+    const ip=istFill;// IST as % of SOLL bar height
+    const overPct=st.ist>st.soll&&st.soll>0?Math.round((st.ist-st.soll)/st.soll*100):0;
     let ic='';if(st.ist>0){if(st.ist>st.soll)ic='ist-over';else if(st.ist/st.soll>=0.8)ic='ist-good';else ic='ist-low';}
     const ph=getPhaseNum(weekEntries(w)[0]?.phase||'1'),pc=PHASE_COLORS[ph]||'#3b82f6';
     const kus=getKeyUnits(w).slice(0,3);
@@ -761,7 +763,9 @@ function openWorkout(date){
   document.getElementById('inp-notes').value=s.notes||'';
   renderRpeRow();renderExtrasList();
   document.getElementById('btn-remove').style.display=(s.istKm||s.pace||s.rpe||s.notes||modalExtras.length)?'':'none';
-  document.getElementById('workout-modal').classList.add('open');
+  const mo=document.getElementById('workout-modal');
+  mo.classList.add('open');
+  document.body.style.overflow='hidden';
   setTimeout(()=>document.getElementById('inp-km').focus(),300);
 }
 function addExtra(){modalExtras.push({id:Date.now(),type:'Rad',km:'',notes:''});renderExtrasList();}
@@ -778,7 +782,7 @@ function renderRpeRow(){
   const row=document.getElementById('rpe-row');row.innerHTML='';
   for(let i=1;i<=10;i++){const b=document.createElement('button');b.className='rpe-btn'+(i===selectedRpe?' sel':'');b.textContent=i;b.onclick=()=>{selectedRpe=i===selectedRpe?null:i;renderRpeRow();};row.appendChild(b);}
 }
-function closeWorkoutModal(){document.getElementById('workout-modal').classList.remove('open');modalEntry=null;}
+function closeWorkoutModal(){document.getElementById('workout-modal').classList.remove('open');document.body.style.overflow='';modalEntry=null;}
 function closeWorkoutOnOverlay(e){if(e.target===document.getElementById('workout-modal'))closeWorkoutModal();}
 function saveEntry(){
   if(!modalEntry)return;
@@ -786,8 +790,11 @@ function saveEntry(){
   const pace=document.getElementById('inp-pace').value.trim()||null;
   const notes=document.getElementById('inp-notes').value.trim()||null;
   const s=state[modalEntry.date]||{};
-  s.istKm=km||null;s.pace=pace;s.rpe=selectedRpe;s.notes=notes;
-  if(km||pace||notes||selectedRpe){if(!s.done)s.done=true;}
+  // Auto-fill sollKm if no km entered (analog quickToggle)
+  const autoKm=(!km&&modalEntry.sollKm)?modalEntry.sollKm:null;
+  s.istKm=km||(autoKm?autoKm:s.istKm)||null;
+  s.pace=pace;s.rpe=selectedRpe;s.notes=notes;
+  if(km||autoKm||pace||notes||selectedRpe){if(!s.done)s.done=true;}
   state[modalEntry.date]=s;
   const ce=modalExtras.filter(e=>e.type||e.km||e.notes);
   state['extras_d'+modalEntry.date]=ce.length?ce:[];
@@ -803,8 +810,9 @@ function openSetup(){
   document.getElementById('setup-gist').value=syncGistId;
   document.getElementById('setup-filename').value=syncFilename;
   document.getElementById('setup-modal').classList.add('open');
+  document.body.style.overflow='hidden';
 }
-function closeSetupModal(){document.getElementById('setup-modal').classList.remove('open');}
+function closeSetupModal(){document.getElementById('setup-modal').classList.remove('open');document.body.style.overflow='';}
 function resetAllData(){
   if(!confirm('Alle Trainingsdaten wirklich löschen?\n\nDieser Vorgang kann nicht rückgängig gemacht werden.'))return;
   state={};saveLocal();pushToGist();activeWeek=getCurrentWeek();closeSetupModal();renderAll();showToast('Daten zurückgesetzt ✓');
@@ -855,15 +863,16 @@ function renderKmVerlauf(){
   const svg=document.getElementById('km-verlauf-svg');if(!svg)return;
   const W=600,H=140,pt=12,pb=24,pl=36,pr=12,iW=W-pl-pr,iH=H-pt-pb;
   const pts=[];let cs=0,cc=0;
-  for(let w=1;w<=16;w++){const st=calcWeekStats(w);cc+=st.soll;cs+=st.ist;pts.push({w,ist:cs,soll:cc});}
+  const cwKm=getCurrentWeek();
+  for(let w=1;w<=16;w++){const st=calcWeekStats(w);cc+=st.soll;if(w<=cwKm)cs+=st.ist;pts.push({w,ist:w<=cwKm?cs:null,soll:cc});}
   const maxV=Math.max(cc,cs,1);
   const xS=i=>pl+i/(pts.length-1)*iW,yS=v=>pt+iH-(v/maxV)*iH;
   let gl='';
   for(let i=0;i<=4;i++){const y=pt+iH*(1-i/4),v=Math.round(maxV*i/4);gl+='<line x1="'+pl+'" y1="'+y+'" x2="'+(W-pr)+'" y2="'+y+'" stroke="rgba(255,255,255,0.05)" stroke-width="1"/><text x="'+(pl-4)+'" y="'+(y+4)+'" text-anchor="end" fill="#3e4a65" font-size="9" font-family="Barlow Condensed,sans-serif">'+v+'</text>';}
   const sp=pts.map((d,i)=>(i===0?'M':'L')+' '+xS(i)+' '+yS(d.soll)).join(' ');
-  const lastIdx=pts.findLastIndex(d=>d.ist>0);
-  const hasDat=pts.filter(d=>d.ist>0);
-  const ip=hasDat.map(d=>{const i=pts.indexOf(d);return(i===0?'M':'L')+' '+xS(i)+' '+yS(d.ist);}).join(' ');
+  const lastIdx=pts.findLastIndex(d=>d.ist!==null&&d.ist>0);
+  const hasDat=pts.filter(d=>d.ist!==null&&d.ist>=0);
+  const ip=hasDat.map((d,i2)=>{const i=pts.indexOf(d);return(i2===0?'M':'L')+' '+xS(i)+' '+yS(d.ist);}).join(' ');
   const ia=lastIdx>=0?ip+' L '+xS(lastIdx)+' '+yS(0)+' L '+xS(0)+' '+yS(0)+' Z':'';
   let wl='';for(let i=0;i<pts.length;i+=4)wl+='<text x="'+xS(i)+'" y="'+(H-4)+'" text-anchor="middle" fill="#3e4a65" font-size="9" font-family="Barlow Condensed,sans-serif">W'+pts[i].w+'</text>';
   svg.innerHTML='<defs><linearGradient id="ig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4f8ef7" stop-opacity="0.25"/><stop offset="100%" stop-color="#4f8ef7" stop-opacity="0.02"/></linearGradient></defs>'+gl+(ia?'<path d="'+ia+'" fill="url(#ig)"/>' :'' )+'<path d="'+sp+'" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-dasharray="4,3"/>'+(ip?'<path d="'+ip+'" fill="none" stroke="#4f8ef7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' :'' )+wl+'<text x="'+(W-pr-2)+'" y="'+(pt+14)+'" text-anchor="end" fill="rgba(255,255,255,0.2)" font-size="9" font-family="Barlow Condensed,sans-serif">SOLL</text>';
@@ -894,6 +903,8 @@ function injectIcons(){
   const mb=new Blob([JSON.stringify(mf)],{type:'application/manifest+json'});
   const ml=document.createElement('link');ml.rel='manifest';ml.href=URL.createObjectURL(mb);document.head.appendChild(ml);
 }
+// Fix standalone PWA body padding
+if(window.navigator.standalone){document.body.style.paddingBottom='0';}
 loadLocal();
 activeWeek=getCurrentWeek();
 injectIcons();
