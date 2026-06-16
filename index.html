@@ -688,8 +688,8 @@ function renderOverviewChart(chartId,infoId){
     const dots=kus.map(k=>'<span class="ov-dot ov-d-'+k+'"></span>').join('');
     const lbl=isCur?'●':'W'+w;
     const isStats=chartId.includes('stats');
-    const onclk=isStats?"updateOvInfo('"+infoId+"',"+w+");selectChartWeek("+w+",true)":"updateOvInfo('"+infoId+"',"+w+");selectChartWeek("+w+")";
-    cols+='<div class="ov-col'+(isCur?' ov-current':'')+(isSel&&!isCur?' ov-selected':'')+'" onmouseenter="updateOvInfo('"+infoId+"',"+w+")" onclick="'+onclk+'">'
+    const onclk=isStats?'updateOvInfo(\''+infoId+'\','+w+');selectChartWeek('+w+',true)':'updateOvInfo(\''+infoId+'\','+w+');selectChartWeek('+w+')';
+    cols+='<div class="ov-col'+(isCur?' ov-current':'')+(isSel&&!isCur?' ov-selected':'')+'" onmouseenter="updateOvInfo(\''+infoId+'\','+w+')" onclick="'+onclk+'">'
       +'<div class="ov-dots">'+(dots||'<span style="width:5px;height:5px"></span>')+'</div>'
       +'<div class="ov-bar-area"><div class="ov-soll'+(isFut&&!isCur?' future':'')+'" style="height:'+sp+'%">'
       +(st.ist>0?'<div class="ov-ist '+ic+'" style="height:'+ip+'%"></div>':'')
