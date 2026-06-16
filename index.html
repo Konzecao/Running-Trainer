@@ -490,7 +490,20 @@ function daysLeft(){const r=new Date(RACE_DATE);r.setHours(0,0,0,0);return Math.
 function getCurrentWeek(){const t=today();for(let w=16;w>=1;w--){const f=PLAN.find(e=>e.week===w);if(f&&t>=parseDate(f.date))return w;}return 1;}
 function getPhaseNum(p){const m=p&&p.match(/^(\d)/);return m?m[1]:'1'}
 function getPhaseColor(p){return PHASE_COLORS[getPhaseNum(p)]||'#3b82f6'}
-function isRest(u){if(!u)return true;const k=u.toUpperCase();return k.includes('RUHE')||k.includes('FREI')||k.includes('STABI')||k.includes('MOBILITY')||k.includes('RAD')||k.includes('REG')||k.includes('SHAKEOUT')}
+function isRest(u){
+  if(!u)return true;
+  const k=u.toUpperCase();
+  // Echte Ruhetage: nur Ruhe/Frei/Stabi/Mobility solo oder kombiniert
+  if(k==='RUHE'||k.startsWith('RUHE ')||k.startsWith('RUHE+'))return true;
+  if(k.includes('FREI'))return true;
+  if(k.startsWith('STABI'))return true;
+  if(k.startsWith('MOBILITY'))return true;
+  // "Ruhe + Stabi" = Ruhetag mit optionalem Kraft
+  if(k.startsWith('RUHE'))return true;
+  // Rad solo ohne Lauf = aktive Erholung aber zählbar
+  // Reg/Rad/Shakeout = haben oft sollKm → nicht isRest
+  return false;
+}
 function getRpeClass(r){if(!r)return'';if(r<=3)return'ic-rpe-easy';if(r<=5)return'ic-rpe-mod';if(r<=7)return'ic-rpe-hard';return'ic-rpe-max'}
 function getBadge(u){
   if(!u)return{label:'—',bg:'rgba(107,116,148,0.1)',color:'#3e4a65',accent:''};
@@ -748,11 +761,14 @@ function toggleRoutine(w,id){const k='routine_w'+w,r=state[k]||{};r[id]=!r[id];s
 function navigateWeek(d){activeWeek=Math.max(1,Math.min(16,activeWeek+d));renderTrainingWeek();renderOverviewChart('ov-chart-today','ov-info-today');}
 function selectChartWeek(w,go){
   activeWeek=w;
-  if(go)switchView('today');
+  // Immer zu Training-View wechseln und zur Woche scrollen
+  switchView('today');
   renderTrainingWeek();
   renderOverviewChart('ov-chart-today','ov-info-today');
-  // Scroll week container into view
-  if(!go){const wc=document.getElementById('today-week-container');if(wc)setTimeout(()=>wc.scrollIntoView({behavior:'smooth',block:'start'}),50);}
+  setTimeout(()=>{
+    const wc=document.getElementById('today-week-container');
+    if(wc)wc.scrollIntoView({behavior:'smooth',block:'start'});
+  },80);
 }
 function switchView(name){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
@@ -881,8 +897,8 @@ function renderKmVerlauf(){
   for(let w=1;w<=16;w++){
     const st=calcWeekStats(w);
     cumSoll+=st.soll;
-    if(w<=cw)cumIst+=st.ist;
-    pts.push({w,ist:w<=cw?cumIst:null,soll:cumSoll});
+    cumIst+=st.ist;// alle Wochen — auch zukünftig abgehakte
+    pts.push({w,ist:cumIst>0||w<=cw?cumIst:null,soll:cumSoll});
   }
   const maxV=Math.max(cumSoll,cumIst,1);
   const xS=i=>pl+i/(pts.length-1)*iW;
