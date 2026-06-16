@@ -283,7 +283,7 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
   </div>
   <div class="sb-nav">
     <button class="sb-btn active" id="sb-today" onclick="switchView('today')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="3.2" r="1.4" stroke="currentColor" fill="none"/><path d="M14.5 5.5 C13.5 6 12.5 7 12 8.5 L10.5 12.5 L8 13.5"/><path d="M12 8.5 L14.5 10 L17 8.5"/><path d="M10.5 12.5 L9.5 16 L8 19.5"/><path d="M10.5 12.5 L12.5 15.5 L14 19.5"/><line x1="4" y1="10.5" x2="7.5" y2="10.5"/><line x1="3" y1="12.5" x2="6.5" y2="12.5"/><line x1="4.5" y1="14.5" x2="7.5" y2="14.5"/></svg>Training
+      <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="15" cy="3.5" r="1.8"/><path d="M13.5 5.5 C12 6.5 11 8 10.5 9.5 L9 13.5 L6.5 14.5 L7.5 16 L10.5 14.5 L11.5 17.5 L10 21 L11.5 21 L13 17.5 L14 21 L15.5 21 L14 17 L15 14 L17.5 15.5 L18.5 13.5 L15.5 11.5 L16 8 L18 6.5 L17 5 L14.5 6.5 Z"/></svg>Training
     </button>
     <button class="sb-btn" id="sb-stats" onclick="switchView('stats')">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Stats
@@ -298,7 +298,7 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
 
 <nav id="bottom-nav">
   <button class="nav-btn active" id="nav-today" onclick="switchView('today')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="15" cy="3.2" r="1.4" stroke="currentColor" fill="none"/><path d="M14.5 5.5 C13.5 6 12.5 7 12 8.5 L10.5 12.5 L8 13.5"/><path d="M12 8.5 L14.5 10 L17 8.5"/><path d="M10.5 12.5 L9.5 16 L8 19.5"/><path d="M10.5 12.5 L12.5 15.5 L14 19.5"/><line x1="4" y1="10.5" x2="7.5" y2="10.5"/><line x1="3" y1="12.5" x2="6.5" y2="12.5"/><line x1="4.5" y1="14.5" x2="7.5" y2="14.5"/></svg>
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" width="24" height="24"><circle cx="15" cy="3.5" r="1.8"/><path d="M13.5 5.5 C12 6.5 11 8 10.5 9.5 L9 13.5 L6.5 14.5 L7.5 16 L10.5 14.5 L11.5 17.5 L10 21 L11.5 21 L13 17.5 L14 21 L15.5 21 L14 17 L15 14 L17.5 15.5 L18.5 13.5 L15.5 11.5 L16 8 L18 6.5 L17 5 L14.5 6.5 Z"/></svg>
     Training
   </button>
   <button class="nav-btn" id="nav-stats" onclick="switchView('stats')">
@@ -688,8 +688,8 @@ function renderOverviewChart(chartId,infoId){
     const dots=kus.map(k=>'<span class="ov-dot ov-d-'+k+'"></span>').join('');
     const lbl=isCur?'●':'W'+w;
     const isStats=chartId.includes('stats');
-    const onclk=isStats?'updateOvInfo("'+infoId+'",'+w+');selectChartWeek('+w+',true)':'updateOvInfo("'+infoId+'",'+w+');selectChartWeek('+w+')';
-    cols+='<div class="ov-col'+(isCur?' ov-current':'')+(isSel&&!isCur?' ov-selected':'')+'" onmouseenter="updateOvInfo(\''+infoId+'\','+w+')" onclick="'+onclk+'">'
+    const onclk=isStats?"updateOvInfo('"+infoId+"',"+w+");selectChartWeek("+w+",true)":"updateOvInfo('"+infoId+"',"+w+");selectChartWeek("+w+")";
+    cols+='<div class="ov-col'+(isCur?' ov-current':'')+(isSel&&!isCur?' ov-selected':'')+'" onmouseenter="updateOvInfo('"+infoId+"',"+w+")" onclick="'+onclk+'">'
       +'<div class="ov-dots">'+(dots||'<span style="width:5px;height:5px"></span>')+'</div>'
       +'<div class="ov-bar-area"><div class="ov-soll'+(isFut&&!isCur?' future':'')+'" style="height:'+sp+'%">'
       +(st.ist>0?'<div class="ov-ist '+ic+'" style="height:'+ip+'%"></div>':'')
@@ -705,6 +705,9 @@ function renderTrainingWeek(){
   const pname=PHASE_NAMES[pn]||'';const cw=getCurrentWeek();
   const ni=document.getElementById('week-nav-info');
   if(ni){
+    ni.style.transition='background 0.3s';
+    ni.style.background='rgba(79,142,247,0.18)';
+    setTimeout(()=>ni.style.background='',400);
     const tag=activeWeek===cw?'<span style="background:var(--blue-dim);color:var(--blue);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:2px 7px;border-radius:10px;margin-left:6px">Aktuell</span>':'';
     ni.innerHTML='<span class="week-nav-num sg">Woche '+activeWeek+tag+'</span><span class="week-nav-phase" style="color:'+pc+'">Phase '+pn+' · '+pname+'</span>';
   }
@@ -771,11 +774,15 @@ function selectChartWeek(w,go){
   // Now render with correct activeWeek
   renderTrainingWeek();
   renderOverviewChart('ov-chart-today','ov-info-today');
-  // Scroll to week
+  // Scroll to week nav bar (iOS-safe)
   setTimeout(()=>{
-    const wc=document.getElementById('today-week-container');
-    if(wc)wc.scrollIntoView({behavior:'smooth',block:'start'});
-  },100);
+    const wc=document.getElementById('week-nav-info');
+    if(wc){
+      const rect=wc.getBoundingClientRect();
+      const scrollTop=window.pageYOffset||document.documentElement.scrollTop;
+      window.scrollTo({top:scrollTop+rect.top-80,behavior:'smooth'});
+    }
+  },80);
 }
 function switchView(name){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
@@ -924,8 +931,10 @@ function renderKmVerlauf(){
   const lastIdx=pts.findLastIndex(d=>d.ist!==null);
   let ip='',ia='';
   if(istPts.length>0){
-    ip=istPts.map((d,i)=>(i===0?'M':'L')+' '+xS(pts.indexOf(d))+' '+yS(d.ist)).join(' ');
-    ia=ip+' L '+xS(lastIdx)+' '+yS(0)+' L '+xS(0)+' '+yS(0)+' Z';
+    // Start from origin so single-week data shows as a line, not invisible dot
+    ip='M '+xS(0)+' '+yS(0);
+    istPts.forEach(d=>{ ip+=' L '+xS(pts.indexOf(d))+' '+yS(d.ist); });
+    ia=ip+' L '+xS(lastIdx)+' '+yS(0)+' Z';
   }
   let wl='';
   for(let i=0;i<pts.length;i+=2){
