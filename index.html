@@ -6,18 +6,19 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="HM Köln">
-<meta name="theme-color" content="#020617">
+<meta name="theme-color" content="#0d1015">
+<script>try{if(localStorage.getItem('hm_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
 <title>HM Köln 2026 · Peter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#020617;--bg1:#080d1a;--bg2:#0d1425;--bg3:#131c30;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.11);--text:#f0f2fa;--muted:#7d8aaa;--faint:#3e4a65;--blue:#4f8ef7;--blue-dim:rgba(79,142,247,0.14);--green:#22c55e;--green-dim:rgba(34,197,94,0.13);--amber:#f59e0b;--amber-dim:rgba(245,158,11,0.14);--red:#f04545;--red-dim:rgba(240,69,69,0.14);--purple:#b197fc;--purple-dim:rgba(177,151,252,0.14);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.13);--radius:14px;--radius-sm:8px;--radius-lg:20px;--nav-h:64px;--header-h:56px;--ease:cubic-bezier(0.16,1,0.3,1)}
+:root{--bg:#0d1015;--bg1:#12151c;--bg2:#171b23;--bg3:#1d222c;--border:rgba(200,210,230,0.07);--border2:rgba(200,210,230,0.13);--text:#dde1ea;--muted:#8e95a5;--faint:#565e6e;--blue:#7d9bd6;--blue-dim:rgba(125,155,214,0.11);--green:#6aa583;--green-dim:rgba(106,165,131,0.10);--amber:#c2a15f;--amber-dim:rgba(194,161,95,0.11);--red:#c17f7f;--red-dim:rgba(193,127,127,0.11);--purple:#9b93c4;--purple-dim:rgba(155,147,196,0.11);--teal:#6fa89c;--teal-dim:rgba(111,168,156,0.10);--gray-dim:rgba(140,150,170,0.12);--track:rgba(255,255,255,0.07);--tick:rgba(255,255,255,0.6);--hover:rgba(255,255,255,0.03);--scrim:rgba(0,0,0,0.7);--surface:rgba(13,16,21,0.92);--surface2:rgba(16,19,26,0.97);--card-shadow:none;--grid:rgba(255,255,255,0.05);--grid-line:rgba(255,255,255,0.18);--grid-txt:rgba(255,255,255,0.28);--icon:invert(24%) sepia(14%) saturate(1000%) hue-rotate(185deg) brightness(80%);--icon-active:invert(62%) sepia(60%) saturate(500%) hue-rotate(185deg) brightness(110%);--radius:10px;--radius-sm:7px;--radius-lg:14px;--nav-h:64px;--header-h:56px;--ease:cubic-bezier(0.16,1,0.3,1)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.5;min-height:100dvh;overflow-x:hidden;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:calc(var(--nav-h) + max(env(safe-area-inset-bottom),20px))}
 .sg{font-family:'Barlow Condensed',sans-serif;letter-spacing:-0.01em}
 .mono{font-family:'Barlow Condensed',sans-serif;font-weight:600}
-#app-header{position:fixed;top:0;left:0;right:0;z-index:100;padding-top:env(safe-area-inset-top);background:rgba(2,6,23,0.92);backdrop-filter:blur(24px) saturate(200%);-webkit-backdrop-filter:blur(24px) saturate(200%);border-bottom:1px solid rgba(79,142,247,0.1)}
+#app-header{position:fixed;top:0;left:0;right:0;z-index:100;padding-top:env(safe-area-inset-top);background:var(--surface);backdrop-filter:blur(24px) saturate(130%);-webkit-backdrop-filter:blur(24px) saturate(130%);border-bottom:1px solid rgba(107,150,232,0.1)}
 .header-inner{height:var(--header-h);padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
 .brand-icon{width:36px;height:36px;border-radius:10px;flex-shrink:0;overflow:hidden;background:linear-gradient(135deg,#0d2a6e,#1a4db8);display:flex;align-items:center;justify-content:center}
@@ -31,22 +32,22 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--faint);transition:background 0.3s;flex-shrink:0}
 .sync-dot.ok{background:var(--green)}.sync-dot.busy{background:var(--amber);animation:pulse 1s ease-in-out infinite}.sync-dot.err{background:var(--red)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-.week-chip{background:var(--blue-dim);border:1px solid rgba(79,142,247,0.3);color:var(--blue);padding:3px 11px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;white-space:nowrap}
-#bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;min-height:var(--nav-h);height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(2,6,23,0.95);backdrop-filter:blur(24px) saturate(200%);-webkit-backdrop-filter:blur(24px) saturate(200%);border-top:1px solid rgba(255,255,255,0.07);display:flex}
+.week-chip{background:var(--blue-dim);border:1px solid rgba(107,150,232,0.3);color:var(--blue);padding:3px 11px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;white-space:nowrap}
+#bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;min-height:var(--nav-h);height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--surface);backdrop-filter:blur(24px) saturate(130%);-webkit-backdrop-filter:blur(24px) saturate(130%);border-top:1px solid var(--border2);display:flex}
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:none;background:none;cursor:pointer;color:var(--faint);transition:color 0.2s var(--ease);-webkit-tap-highlight-color:transparent;font-size:10px;font-weight:600;font-family:'Inter',sans-serif;letter-spacing:0.03em;text-transform:uppercase;padding:8px 0 0}
 .nav-btn svg{width:24px;height:24px;transition:transform 0.2s var(--ease)}
 .nav-btn.active{color:var(--blue)}
 #main{margin-top:calc(var(--header-h) + env(safe-area-inset-top));max-width:680px;margin-left:auto;margin-right:auto;padding:0 12px 24px}
 .view{display:none}.view.active{display:block}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 0 8px}
-.stat-card{background:linear-gradient(135deg,rgba(13,20,37,0.9),rgba(8,13,26,0.95));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);padding:16px 16px 14px;position:relative;overflow:hidden;cursor:default;transition:border-color 0.2s,transform 0.2s var(--ease),box-shadow 0.2s}
-.stat-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.4)}
-.stat-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;opacity:0.08;filter:blur(20px)}
-.stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;opacity:0.5}
-.stat-card.blue::before{background:var(--blue)}.stat-card.blue::after{background:linear-gradient(90deg,transparent,var(--blue),transparent)}
-.stat-card.green::before{background:var(--green)}.stat-card.green::after{background:linear-gradient(90deg,transparent,var(--green),transparent)}
-.stat-card.amber::before{background:var(--amber)}.stat-card.amber::after{background:linear-gradient(90deg,transparent,var(--amber),transparent)}
-.stat-card.purple::before{background:var(--purple)}.stat-card.purple::after{background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.stat-card{background:var(--bg1);box-shadow:var(--card-shadow);border:1px solid var(--border);border-radius:var(--radius);padding:16px 16px 14px;position:relative;overflow:hidden;cursor:default;transition:border-color 0.2s,transform 0.2s var(--ease),box-shadow 0.2s}
+.stat-card:hover{border-color:var(--border2)}
+
+
+
+
+
+
 .stat-label{font-family:'Barlow',sans-serif;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:8px}
 .stat-value{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:800;line-height:0.9;letter-spacing:-0.01em}
 .stat-value.blue{color:var(--blue)}.stat-value.green{color:var(--green)}.stat-value.amber{color:var(--amber)}.stat-value.purple{color:var(--purple)}
@@ -59,7 +60,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .progress-track{flex:1;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
 .progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--teal));transition:width 0.6s var(--ease)}
 .progress-pct{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.03em;color:var(--muted);white-space:nowrap}
-.next-card{background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(45,212,191,0.05));border:1px solid rgba(59,130,246,0.2);border-radius:var(--radius);padding:12px 16px;margin:6px 0 4px;display:flex;align-items:center;gap:12px}
+.next-card{background:linear-gradient(135deg,rgba(107,150,232,0.1),rgba(87,179,164,0.05));border:1px solid rgba(107,150,232,0.2);border-radius:var(--radius);padding:12px 16px;margin:6px 0 4px;display:flex;align-items:center;gap:12px}
 .next-card-icon{width:36px;height:36px;border-radius:10px;background:var(--blue-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .next-card-icon svg{width:18px;height:18px;color:var(--blue)}
 .next-card-body{flex:1;min-width:0}
@@ -90,9 +91,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .routine-check svg{width:13px;height:13px;flex-shrink:0}
 .day-row{display:flex;align-items:flex-start;gap:10px;padding:11px 14px 11px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s;-webkit-tap-highlight-color:transparent;position:relative;border-left:3px solid transparent}
 .day-row:last-child{border-bottom:none}
-.day-row:hover{background:rgba(255,255,255,0.025)}
-.day-row.done-row{background:rgba(34,197,94,0.04)}
-.day-row.partial-row{background:rgba(245,158,11,0.04)}
+.day-row:hover{background:var(--hover)}
+.day-row.done-row{background:rgba(85,184,128,0.04)}
+.day-row.partial-row{background:rgba(217,168,81,0.04)}
 .day-row.is-rest{cursor:default;opacity:0.6;border-left-color:transparent!important}
 .day-row.is-rest:hover{background:none}
 .day-row.accent-int{border-left-color:var(--red)}.day-row.accent-tdl{border-left-color:var(--amber)}.day-row.accent-rt{border-left-color:var(--amber)}.day-row.accent-ll{border-left-color:var(--teal)}.day-row.accent-dl{border-left-color:var(--blue)}.day-row.accent-race{border-left-color:var(--green)}
@@ -112,7 +113,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .day-km-ist.over{color:var(--teal)}.day-km-ist.partial-km{color:var(--amber)}
 .inline-chips{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;margin-top:1px}
 .ic{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;padding:1px 5px;border-radius:4px;white-space:nowrap;letter-spacing:0.02em;line-height:1.5}
-.ic-pace{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(79,142,247,0.18)}
+.ic-pace{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(107,150,232,0.18)}
 .ic-rpe-easy{background:var(--green-dim);color:var(--green)}.ic-rpe-mod{background:var(--amber-dim);color:var(--amber)}.ic-rpe-hard{background:var(--red-dim);color:var(--red)}.ic-rpe-max{background:var(--purple-dim);color:var(--purple)}
 .ic-notes{background:var(--bg3);color:var(--muted);border:1px solid var(--border)}
 .done-check{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--faint);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s var(--ease);cursor:pointer;position:relative}
@@ -122,7 +123,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .done-check.checked svg,.done-check.partial svg{opacity:1}
 .done-check::after{content:'';position:absolute;inset:-10px;border-radius:50%}
 .extra-chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
-.extra-chip{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.03em;padding:2px 8px;border-radius:20px;background:rgba(79,142,247,0.12);border:1px solid rgba(79,142,247,0.2);color:var(--blue);white-space:nowrap}
+.extra-chip{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.03em;padding:2px 8px;border-radius:20px;background:rgba(107,150,232,0.12);border:1px solid rgba(107,150,232,0.2);color:var(--blue);white-space:nowrap}
 .ov-wrap{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);padding:14px 14px 12px;margin-top:12px}
 .ov-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .ov-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;letter-spacing:0.03em;text-transform:uppercase;color:var(--text)}
@@ -130,20 +131,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .ov-scroll::-webkit-scrollbar{display:none}
 .ov-chart{display:flex;gap:2px;align-items:stretch;min-width:100%}
 .ov-col{flex:1;min-width:18px;display:flex;flex-direction:column;align-items:center;cursor:pointer;border-radius:4px;transition:background 0.15s;padding:0 1px;-webkit-tap-highlight-color:transparent}
-.ov-col:hover{background:rgba(255,255,255,0.04)}
-.ov-col.ov-current{background:rgba(79,142,247,0.1);outline:1px solid rgba(79,142,247,0.3);border-radius:5px}
+.ov-col:hover{background:var(--hover)}
+.ov-col.ov-current{background:rgba(107,150,232,0.1);outline:1px solid rgba(107,150,232,0.3);border-radius:5px}
 .ov-dots{height:14px;width:100%;display:flex;gap:2px;align-items:center;justify-content:center;flex-shrink:0;padding-top:2px}
 .ov-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
 .ov-d-int{background:var(--red)}.ov-d-tdl{background:var(--amber)}.ov-d-ll{background:var(--teal)}.ov-d-race{background:var(--green)}
 .ov-bar-area{flex:1;width:100%;position:relative}
-.ov-soll{position:absolute;bottom:0;left:20%;right:20%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-bottom:none;border-radius:3px 3px 0 0;transition:height 0.4s var(--ease);overflow:visible}
-.ov-soll.future{opacity:0.5;border-style:dashed;background:rgba(255,255,255,0.06)}
+.ov-soll{position:absolute;bottom:0;left:20%;right:20%;background:var(--track);border:1px solid var(--border2);border-bottom:none;border-radius:3px 3px 0 0;transition:height 0.4s var(--ease);overflow:visible}
+.ov-soll.future{opacity:0.5;border-style:dashed;background:var(--track)}
 .ov-ist{position:absolute;bottom:0;left:0;right:0;border-radius:3px 3px 0 0;transition:height 0.4s var(--ease)}
 .ov-ist.ist-good{background:linear-gradient(180deg,var(--blue),var(--teal))}.ov-ist.ist-over{background:var(--teal)}.ov-ist.ist-low{background:var(--amber)}
 .ov-ist-over-ext{position:absolute;bottom:100%;left:0;right:0;border-radius:3px 3px 0 0;background:var(--teal);opacity:0.85}
 .ov-lbl{height:16px;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;color:var(--faint);text-align:center;letter-spacing:0.03em;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ov-col.ov-current .ov-lbl{color:var(--blue)}
-.ov-col.ov-selected{background:rgba(255,255,255,0.04);outline:1px solid rgba(255,255,255,0.1);border-radius:5px}
+.ov-col.ov-selected{background:var(--hover);outline:1px solid var(--border2);border-radius:5px}
 .ov-col.ov-selected .ov-lbl{color:var(--text)}
 .ov-info{margin-top:8px;min-height:36px;padding:6px 10px;border-radius:var(--radius-sm);background:var(--bg2);border:1px solid var(--border);font-size:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .ov-info-week{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;color:var(--blue);flex-shrink:0}
@@ -157,7 +158,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .ov-leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
 .ov-phase-band{display:flex;gap:2px;margin-top:5px}
 .ov-phase-seg{display:flex;align-items:flex-start;justify-content:center;padding-top:3px;border-top:2px solid currentColor;font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.ov-phase-seg.active-phase{background:rgba(255,255,255,0.03);border-radius:0 0 3px 3px}
+.ov-phase-seg.active-phase{background:var(--hover);border-radius:0 0 3px 3px}
 .phase-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;padding-top:8px;border-top:1px solid var(--border)}
 .phase-legend-item{display:flex;align-items:center;gap:5px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.03em}
 .phase-legend-dot{width:10px;height:3px;border-radius:2px;flex-shrink:0}
@@ -173,18 +174,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .wt-routine{display:flex;gap:2px;align-items:center;justify-content:center}
 .wt-dot{width:6px;height:6px;border-radius:50%}
 .wt-dot.on{background:var(--green)}.wt-dot.off{background:var(--faint);opacity:0.4}
-.wt-bar-wrap{position:relative;height:6px;border-radius:3px;background:rgba(255,255,255,0.07);overflow:visible}
+.wt-bar-wrap{position:relative;height:6px;border-radius:3px;background:var(--track);overflow:visible}
 .wt-bar-ist{position:absolute;top:0;left:0;bottom:0;border-radius:3px}
-.wt-bar-over{position:absolute;top:-2px;bottom:-2px;border-radius:3px;background:var(--teal);opacity:0.9}
+.wt-soll-tick{position:absolute;top:-2px;bottom:-2px;width:2px;border-radius:1px;background:var(--tick)}
 .km-verlauf-wrap{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-top:14px}
 .km-verlauf-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;letter-spacing:0.02em;text-transform:uppercase;margin-bottom:3px}
 .km-verlauf-sub{font-size:11px;color:var(--muted);margin-bottom:12px}
 .km-verlauf-svg{width:100%;overflow:visible;display:block}
-.streak-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-.streak-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
-.streak-val{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:800;line-height:0.9;letter-spacing:-0.01em}
-.streak-lbl{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:8px}
-.streak-sub{font-size:11px;color:var(--muted);margin-top:4px}
 .consistency-wrap{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-top:10px}
 .cons-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.03em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .cons-dots{display:flex;gap:5px;flex-wrap:wrap}
@@ -200,7 +196,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .zone-pace{font-family:'Barlow Condensed',sans-serif;font-weight:600;color:var(--muted);font-size:13px;text-align:right}
 .stats-chart{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-top:8px}
 .chart-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;letter-spacing:0.02em;text-transform:uppercase;margin-bottom:16px}
-.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.modal-overlay{position:fixed;inset:0;z-index:200;background:var(--scrim);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s}
 @media(min-width:640px){.modal-overlay{align-items:center}.modal-sheet{border-radius:var(--radius-lg)!important;max-width:480px;margin:0 auto}}
 .modal-overlay.open{opacity:1;pointer-events:all}
 .modal-sheet{width:100%;max-width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:0 0 env(safe-area-inset-bottom);transform:translateY(30px);transition:transform 0.3s var(--ease);max-height:90dvh;overflow-y:auto}
@@ -211,7 +207,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .modal-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;letter-spacing:0.02em;text-transform:uppercase}
 .modal-subtitle{font-size:12px;color:var(--muted);margin-top:2px}
 .modal-close-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border2);background:var(--bg3);color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s;line-height:1;padding:0;font-family:sans-serif}
-.modal-close-btn:hover{background:var(--red-dim);color:var(--red);border-color:rgba(240,69,69,0.3)}
+.modal-close-btn:hover{background:var(--red-dim);color:var(--red);border-color:rgba(217,112,112,0.3)}
 .modal-body{padding:16px 20px}
 .form-group{margin-bottom:16px}
 .form-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;display:block}
@@ -227,37 +223,80 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .plan-info-box .val{font-size:13px;font-weight:600;line-height:1.4}
 .modal-footer{padding:12px 20px 16px;border-top:1px solid var(--border);display:flex;gap:10px}
 .btn{padding:12px 20px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-size:16px;font-weight:800;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.04em;transition:all 0.2s var(--ease);-webkit-tap-highlight-color:transparent}
-.btn-primary{background:var(--blue);color:#fff;flex:1}.btn-primary:hover{background:#2563eb}
+.btn-primary{background:var(--blue);color:#fff;flex:1}.btn-primary:hover{background:#4a7ad1}
 .btn-secondary{background:var(--bg3);color:var(--muted);border:1px solid var(--border)}
 .btn-ghost{background:none;color:var(--muted);padding:12px 14px}
-.btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.3)}
+.btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(217,112,112,0.3)}
 #setup-modal .modal-sheet{border-radius:var(--radius-lg)!important;max-width:480px;margin:20px auto}
 .setup-step{margin-bottom:20px}
-.setup-step-num{width:24px;height:24px;border-radius:50%;background:var(--blue-dim);border:1px solid rgba(59,130,246,0.3);color:var(--blue);font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle}
+.setup-step-num{width:24px;height:24px;border-radius:50%;background:var(--blue-dim);border:1px solid rgba(107,150,232,0.3);color:var(--blue);font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle}
 .setup-step-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:0.02em;margin-bottom:8px}
 .setup-hint{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:8px}
 code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:var(--teal)}
 .extras-section{border-top:1px solid var(--border);padding-top:14px;margin-top:4px}
 .extras-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .extras-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.04em;text-transform:uppercase;color:var(--muted)}
-.btn-add-extra{display:flex;align-items:center;gap:5px;background:var(--blue-dim);border:1px solid rgba(79,142,247,0.3);color:var(--blue);padding:5px 12px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;-webkit-tap-highlight-color:transparent}
-.btn-add-extra:hover{background:rgba(79,142,247,0.22)}
+.btn-add-extra{display:flex;align-items:center;gap:5px;background:var(--blue-dim);border:1px solid rgba(107,150,232,0.3);color:var(--blue);padding:5px 12px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;-webkit-tap-highlight-color:transparent}
+.btn-add-extra:hover{background:rgba(107,150,232,0.22)}
 .extra-entry{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:8px;align-items:start;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;margin-bottom:8px}
 .extra-select{background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:14px;font-family:'Barlow Condensed',sans-serif;font-weight:600;padding:8px 28px 8px 10px;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237d8aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;min-width:110px}
 .extra-input-sm{background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;padding:8px 10px;outline:none;width:100%;transition:border-color 0.2s}
 .extra-input-sm:focus{border-color:var(--blue)}.extra-input-sm::placeholder{color:var(--faint)}
 .btn-del-extra{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--faint);font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;-webkit-tap-highlight-color:transparent;margin-top:4px}
-.btn-del-extra:hover{background:var(--red-dim);border-color:rgba(240,69,69,0.3);color:var(--red)}
+.btn-del-extra:hover{background:var(--red-dim);border-color:rgba(217,112,112,0.3);color:var(--red)}
 #toast{position:fixed;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 12px);left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 18px;border-radius:20px;font-size:13px;font-weight:600;z-index:300;opacity:0;transition:all 0.25s var(--ease);pointer-events:none;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #sidebar{display:none}
 @media(min-width:640px){#main{padding:0 24px 32px}.hero-grid{grid-template-columns:repeat(4,1fr)}.stat-value{font-size:44px}.day-unit-name{font-size:16px}.week-table-row{grid-template-columns:38px 1fr 56px 56px 46px 46px 46px}}
-@media(min-width:1024px){#sidebar{display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;width:220px;z-index:110;background:rgba(4,9,20,0.97);border-right:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);padding-top:env(safe-area-inset-top)}.sb-brand{padding:20px 20px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.sb-brand .brand-icon{width:36px;height:36px;border-radius:10px;flex-shrink:0;overflow:hidden}.sb-brand .brand-icon img{width:100%;height:100%;object-fit:cover}.sb-brand-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;line-height:1.2;color:var(--text)}.sb-brand-sub{font-size:10px;color:var(--muted);font-weight:500;margin-top:1px;white-space:nowrap}.sb-nav{flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}.sb-btn{display:flex;align-items:center;gap:12px;width:100%;border:none;background:none;cursor:pointer;color:var(--muted);padding:10px 12px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;transition:all 0.15s var(--ease);text-align:left;-webkit-tap-highlight-color:transparent}.sb-btn svg{width:20px;height:20px;flex-shrink:0}.sb-btn:hover{background:rgba(255,255,255,0.05);color:var(--text)}.sb-btn.active{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(79,142,247,0.2)}.sb-divider{height:1px;background:rgba(255,255,255,0.06);margin:8px 10px}.sb-footer{padding:12px 14px;border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0}.sb-sync{display:flex;align-items:center;gap:6px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;color:var(--muted);padding:4px 6px;border-radius:8px;transition:background 0.15s}.sb-sync:hover{background:rgba(255,255,255,0.05)}.sb-week-chip{background:var(--blue-dim);border:1px solid rgba(79,142,247,0.3);color:var(--blue);padding:3px 11px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;white-space:nowrap;flex-shrink:0}#bottom-nav{display:none}#app-header{display:none}#main{margin-left:220px;margin-top:0;max-width:none;padding:24px 40px 40px}#toast{bottom:24px}#view-stats{max-width:960px}.week-nav-bar{gap:12px}.week-nav-btn{padding:7px 16px;font-size:14px}}
+@media(min-width:1024px){#sidebar{display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;width:220px;z-index:110;background:var(--surface2);border-right:1px solid var(--border2);backdrop-filter:blur(24px) saturate(130%);-webkit-backdrop-filter:blur(24px) saturate(130%);padding-top:env(safe-area-inset-top)}.sb-brand{padding:20px 20px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);flex-shrink:0}.sb-brand .brand-icon{width:36px;height:36px;border-radius:10px;flex-shrink:0;overflow:hidden}.sb-brand .brand-icon img{width:100%;height:100%;object-fit:cover}.sb-brand-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;line-height:1.2;color:var(--text)}.sb-brand-sub{font-size:10px;color:var(--muted);font-weight:500;margin-top:1px;white-space:nowrap}.sb-nav{flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}.sb-btn{display:flex;align-items:center;gap:12px;width:100%;border:none;background:none;cursor:pointer;color:var(--muted);padding:10px 12px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;transition:all 0.15s var(--ease);text-align:left;-webkit-tap-highlight-color:transparent}.sb-btn svg{width:20px;height:20px;flex-shrink:0}.sb-btn:hover{background:var(--hover);color:var(--text)}.sb-btn.active{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(107,150,232,0.2)}.sb-divider{height:1px;background:var(--border);margin:8px 10px}.sb-footer{padding:12px 14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0}.sb-sync{display:flex;align-items:center;gap:6px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;color:var(--muted);padding:4px 6px;border-radius:8px;transition:background 0.15s}.sb-sync:hover{background:var(--hover)}.sb-week-chip{background:var(--blue-dim);border:1px solid rgba(107,150,232,0.3);color:var(--blue);padding:3px 11px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;white-space:nowrap;flex-shrink:0}#bottom-nav{display:none}#app-header{display:none}#main{margin-left:220px;margin-top:0;max-width:none;padding:24px 40px 40px}#toast{bottom:24px}#view-stats{max-width:960px}.week-nav-bar{gap:12px}.week-nav-btn{padding:7px 16px;font-size:14px}}
 
-.runner-icon{filter:invert(24%) sepia(14%) saturate(1000%) hue-rotate(185deg) brightness(80%);transition:filter 0.2s}
-.nav-btn.active .runner-icon{filter:invert(62%) sepia(60%) saturate(500%) hue-rotate(185deg) brightness(110%)}
-.sb-btn .runner-icon{filter:invert(24%) sepia(14%) saturate(1000%) hue-rotate(185deg) brightness(80%)}
-.sb-btn.active .runner-icon{filter:invert(62%) sepia(60%) saturate(500%) hue-rotate(185deg) brightness(110%)}
+/* Ausfall-Tage (krank/verletzt) */
+.day-row.off-day{opacity:0.6;background:repeating-linear-gradient(-45deg,transparent 0 8px,rgba(217,112,112,0.045) 8px 16px)}
+.ic-off{background:var(--red-dim);color:var(--red);border:1px solid rgba(217,112,112,0.2)}
+.off-chip-row{display:flex;gap:8px}
+.off-chip{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:all 0.2s var(--ease);-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif}
+.off-chip.sel{border-color:rgba(217,112,112,0.45);background:var(--red-dim);color:var(--red)}
+/* Tausch-Modus */
+.week-swap-btn{display:flex;align-items:center;gap:5px;background:var(--bg2);border:1px solid var(--border2);color:var(--muted);padding:5px 12px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;cursor:pointer;transition:all 0.15s var(--ease);-webkit-tap-highlight-color:transparent}
+.week-swap-btn.on{border-color:var(--blue);background:var(--blue-dim);color:var(--blue)}
+.day-row.movable{cursor:grab}
+.day-row.move-sel{outline:2px solid var(--blue);outline-offset:-2px;background:var(--blue-dim)}
+.move-hint{padding:8px 16px;font-size:11px;color:var(--blue);background:var(--blue-dim);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.move-hint button{background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline;padding:2px}
+/* KPI-Grid (Stats) */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.kpi-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);padding:14px 10px 12px;text-align:center}
+.kpi-val{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;line-height:1;letter-spacing:-0.01em}
+.kpi-lbl{font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:7px}
+.kpi-sub{font-size:10px;color:var(--faint);margin-top:2px}
+/* Konsistenz-Status */
+.cons-dot.none{background:var(--red);opacity:0.45}
+.cons-dot.off-w{background:var(--bg3);border:1px dashed var(--muted)}
+.cons-dot.running{background:var(--blue-dim);border:1px solid var(--blue)}
+.runner-icon{filter:var(--icon);transition:filter 0.2s}
+.nav-btn.active .runner-icon{filter:var(--icon-active)}
+.sb-btn .runner-icon{filter:var(--icon)}
+.sb-btn.active .runner-icon{filter:var(--icon-active)}
+
+/* ===== LIGHT THEME (Variante C · Tageslicht) ===== */
+html[data-theme="light"]{--bg:#f4f1ea;--bg1:#fbfaf6;--bg2:#f1eee6;--bg3:#e9e5da;--border:rgba(30,38,58,0.10);--border2:rgba(30,38,58,0.18);--text:#242b3d;--muted:#5c6474;--faint:#9aa1b0;--blue:#3557b8;--blue-dim:rgba(53,87,184,0.10);--green:#1f7a45;--green-dim:rgba(31,122,69,0.10);--amber:#9a6a14;--amber-dim:rgba(154,106,20,0.11);--red:#b23f3f;--red-dim:rgba(178,63,63,0.10);--purple:#6b58b8;--purple-dim:rgba(107,88,184,0.10);--teal:#177a6b;--teal-dim:rgba(23,122,107,0.10);--gray-dim:rgba(90,100,120,0.12);--track:rgba(30,38,58,0.09);--tick:rgba(30,38,58,0.55);--hover:rgba(30,38,58,0.04);--scrim:rgba(40,45,60,0.45);--surface:rgba(248,246,241,0.92);--surface2:rgba(252,251,248,0.96);--card-shadow:0 1px 3px rgba(30,38,58,0.06);--grid:rgba(30,38,58,0.08);--grid-line:rgba(30,38,58,0.28);--grid-txt:rgba(30,38,58,0.32);--icon:invert(30%) sepia(20%) saturate(900%) hue-rotate(190deg) brightness(65%);--icon-active:invert(28%) sepia(70%) saturate(1600%) hue-rotate(212deg) brightness(80%)}
+html[data-theme="light"] .stat-card{background:var(--bg1)}
+html[data-theme="light"] .week-card,html[data-theme="light"] .ov-wrap,html[data-theme="light"] .week-table-wrap,html[data-theme="light"] .km-verlauf-wrap,html[data-theme="light"] .consistency-wrap,html[data-theme="light"] .zones-table,html[data-theme="light"] .stats-chart,html[data-theme="light"] .kpi-card,html[data-theme="light"] .next-card{box-shadow:0 1px 3px rgba(30,38,58,0.05)}
+html[data-theme="light"] .done-check{border-color:#b9bfcc}
+html[data-theme="light"] .modal-sheet{box-shadow:0 -8px 40px rgba(30,38,58,0.18)}
+html[data-theme="light"] .form-input,html[data-theme="light"] .extra-input-sm,html[data-theme="light"] .extra-select,html[data-theme="light"] .rpe-btn{background:#fff;border-color:rgba(30,38,58,0.15)}
+html[data-theme="light"] .rpe-btn.sel{background:var(--blue);color:#fff}
+html[data-theme="light"] .btn-primary{color:#fff}
+html[data-theme="light"] code{color:var(--teal)}
+html[data-theme="light"] #toast{background:#242b3d;color:#fbfaf6;border-color:transparent}
+/* ===== THEME TOGGLE BUTTON ===== */
+#theme-toggle,#theme-toggle-sb{width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);background:var(--bg2);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s,color 0.2s,border-color 0.2s;-webkit-tap-highlight-color:transparent;padding:0}
+#theme-toggle:hover,#theme-toggle-sb:hover{background:var(--bg3);color:var(--text)}
+#theme-toggle svg,#theme-toggle-sb svg{width:17px;height:17px}
+#theme-toggle .icon-moon,#theme-toggle-sb .icon-moon{display:none}
+#theme-toggle .icon-sun,#theme-toggle-sb .icon-sun{display:block}
+html[data-theme="light"] #theme-toggle .icon-sun,html[data-theme="light"] #theme-toggle-sb .icon-sun{display:none}
+html[data-theme="light"] #theme-toggle .icon-moon,html[data-theme="light"] #theme-toggle-sb .icon-moon{display:block}
 </style>
 </head>
 <body>
@@ -272,6 +311,10 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
       </div>
     </div>
     <div class="header-right">
+      <button id="theme-toggle" onclick="toggleTheme()" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+        <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      </button>
       <div id="sync-indicator" onclick="openSetup()">
         <div class="sync-dot" id="sync-dot"></div>
         <span id="sync-label">Setup</span>
@@ -298,6 +341,10 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
   <div class="sb-footer">
     <span class="sb-week-chip" id="sb-week-chip">W1</span>
     <div class="sb-sync" onclick="openSetup()"><div class="sync-dot" id="sb-sync-dot"></div><span id="sb-sync-label">Sync</span></div>
+    <button id="theme-toggle-sb" onclick="toggleTheme()" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    </button>
   </div>
 </nav>
 
@@ -350,17 +397,18 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
     <div class="km-verlauf-sub">Kumulierte Kilometer — IST (blau) vs. Soll (gestrichelt)</div>
     <svg class="km-verlauf-svg" id="km-verlauf-svg" viewBox="0 0 600 160" preserveAspectRatio="none" style="height:160px"></svg>
   </div>
-  <div class="streak-wrap">
-    <div class="streak-card"><div class="streak-val" id="streak-current" style="color:var(--green)">0</div><div class="streak-lbl">Aktuelle Serie</div><div class="streak-sub" id="streak-current-sub">Wochen komplett</div></div>
-    <div class="streak-card"><div class="streak-val" id="streak-best" style="color:var(--blue)">0</div><div class="streak-lbl">Beste Serie</div><div class="streak-sub">Wochen komplett</div></div>
-  </div>
+  <div class="kpi-grid" id="kpi-grid"></div>
   <div class="consistency-wrap">
     <div class="cons-title">Konsistenz — 16 Wochen</div>
+    <div style="font-size:11px;color:var(--faint);margin:-6px 0 10px">Erfüllt = Wochen-km ≥ 90 % Soll und alle Pflicht-Einheiten absolviert (Reg/optionale zählen nicht; Ausfalltage reduzieren das Soll)</div>
     <div class="cons-dots" id="cons-dots"></div>
     <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--green)"></div>Komplett</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--green)"></div>Erfüllt</div>
       <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--amber)"></div>Teilweise</div>
-      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--faint);opacity:0.5"></div>Offen</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--red);opacity:0.45"></div>Nicht erfüllt</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--bg3);border:1px dashed var(--muted)"></div>Ausfall</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--blue-dim);border:1px solid var(--blue)"></div>Laufend</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)"><div style="width:12px;height:12px;border-radius:3px;background:var(--bg3);border:1px solid var(--border)"></div>Offen</div>
     </div>
   </div>
   <div class="week-table-wrap">
@@ -384,7 +432,7 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
   <div class="zones-table" style="margin-top:14px">
     <div class="zones-table-hd">Trainingszonen</div>
     <div class="zone-row" style="background:var(--bg2);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted)"><div>Zone</div><div>Name</div><div>HF</div><div style="text-align:right">Pace</div></div>
-    <div class="zone-row"><div><span class="zone-pill" style="background:rgba(107,116,148,0.2);color:var(--muted)">B1</span></div><div class="zone-name">Regeneration</div><div class="zone-hf">&lt;126</div><div class="zone-pace">&gt;6:30</div></div>
+    <div class="zone-row"><div><span class="zone-pill" style="background:rgba(120,128,150,0.2);color:var(--muted)">B1</span></div><div class="zone-name">Regeneration</div><div class="zone-hf">&lt;126</div><div class="zone-pace">&gt;6:30</div></div>
     <div class="zone-row"><div><span class="zone-pill" style="background:var(--blue-dim);color:var(--blue)">B2</span></div><div class="zone-name">GA1</div><div class="zone-hf">126–145</div><div class="zone-pace">~6:10</div></div>
     <div class="zone-row"><div><span class="zone-pill" style="background:var(--teal-dim);color:var(--teal)">B2/3</span></div><div class="zone-name">GA1/2</div><div class="zone-hf">145–155</div><div class="zone-pace">5:30–5:45</div></div>
     <div class="zone-row"><div><span class="zone-pill" style="background:var(--amber-dim);color:var(--amber)">B3</span></div><div class="zone-name">GA2</div><div class="zone-hf">155–169</div><div class="zone-pace">5:00–5:20</div></div>
@@ -424,6 +472,13 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
     </div>
     <div class="modal-body">
       <div class="plan-info-box" id="modal-plan-info"></div>
+      <div class="form-group"><label class="form-label">Ausfall</label>
+        <div class="off-chip-row">
+          <button class="off-chip" id="off-krank" onclick="toggleOff('krank')">🤒 Krank</button>
+          <button class="off-chip" id="off-verletzt" onclick="toggleOff('verletzt')">🩹 Verletzt</button>
+        </div>
+        <div style="font-size:11px;color:var(--faint);margin-top:6px">Markierte Tage zählen nicht in Konsistenz &amp; Wochen-Soll.</div>
+      </div>
       <div class="form-row">
         <div class="form-group"><label class="form-label">IST km</label><input class="form-input" id="inp-km" type="number" step="0.1" min="0" placeholder="z.B. 8.2"></div>
         <div class="form-group"><label class="form-label">Pace (min/km)</label><input class="form-input" id="inp-pace" type="text" placeholder="z.B. 5:45" inputmode="text"></div>
@@ -470,7 +525,7 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
       <button class="btn btn-primary" style="width:100%" onclick="saveSetup()">Verbinden & Sync testen</button>
       <button class="btn btn-ghost" style="width:100%;text-align:center" onclick="closeSetupModal()">Später (nur lokal)</button>
       <div style="border-top:1px solid var(--border);margin-top:4px;padding-top:12px">
-        <button class="btn" style="width:100%;background:rgba(240,69,69,0.12);color:#f04545;border:1px solid rgba(240,69,69,0.25);font-size:13px" onclick="resetAllData()">&#x26A0; Alle Trainingsdaten löschen</button>
+        <button class="btn" style="width:100%;background:rgba(217,112,112,0.12);color:#d97070;border:1px solid rgba(217,112,112,0.25);font-size:13px" onclick="resetAllData()">&#x26A0; Alle Trainingsdaten löschen</button>
       </div>
     </div>
   </div>
@@ -481,7 +536,7 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:'Barlow
 const PLAN=[{"week": 1, "date": "15.06.2026", "day": "Mo", "phase": "1 · Wiedereinstieg & Basis", "unit": "Ruhe + Stabi A", "content": "Frei. 15 min Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 32}, {"week": 1, "date": "16.06.2026", "day": "Di", "phase": "1 · Wiedereinstieg & Basis", "unit": "DL + ST", "content": "8 km locker + 4×100 m ST", "intensity": "GA1 (~5:45)", "sollKm": 8.0, "weeklySollKm": 32}, {"week": 1, "date": "17.06.2026", "day": "Mi", "phase": "1 · Wiedereinstieg & Basis", "unit": "Ruhe / Rad", "content": "Frei o. 40 min Rad locker", "intensity": "Reg–GA1", "sollKm": null, "weeklySollKm": 32}, {"week": 1, "date": "18.06.2026", "day": "Do", "phase": "1 · Wiedereinstieg & Basis", "unit": "DL + ST", "content": "8 km locker + 5×100 m ST + Lauf-ABC", "intensity": "GA1 (~5:45)", "sollKm": 8.0, "weeklySollKm": 32}, {"week": 1, "date": "19.06.2026", "day": "Fr", "phase": "1 · Wiedereinstieg & Basis", "unit": "Ruhe", "content": "Mobility, Faszienrolle", "intensity": "—", "sollKm": null, "weeklySollKm": 32}, {"week": 1, "date": "20.06.2026", "day": "Sa", "phase": "1 · Wiedereinstieg & Basis", "unit": "Langer Lauf", "content": "12 km gleichmäßig locker", "intensity": "GA1 (~6:10)", "sollKm": 12.0, "weeklySollKm": 32}, {"week": 1, "date": "21.06.2026", "day": "So", "phase": "1 · Wiedereinstieg & Basis", "unit": "Reg / Ruhe", "content": "Optional 4 km ausrollen", "intensity": "Reg (B1)", "sollKm": 4.0, "weeklySollKm": 32}, {"week": 2, "date": "22.06.2026", "day": "Mo", "phase": "1 · Wiedereinstieg & Basis", "unit": "Ruhe + Stabi A", "content": "Frei + 15–20 min Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 40}, {"week": 2, "date": "23.06.2026", "day": "Di", "phase": "1 · Wiedereinstieg & Basis", "unit": "TDL", "content": "3 km WU + 2×10 min @4:45 (P 2') + 2 km CD", "intensity": "GA2/Schw. (B4)", "sollKm": 9.0, "weeklySollKm": 40}, {"week": 2, "date": "24.06.2026", "day": "Mi", "phase": "1 · Wiedereinstieg & Basis", "unit": "DL + ST", "content": "8 km locker + 5×100 m ST", "intensity": "GA1 (~5:45)", "sollKm": 8.0, "weeklySollKm": 40}, {"week": 2, "date": "25.06.2026", "day": "Do", "phase": "1 · Wiedereinstieg & Basis", "unit": "DL", "content": "9 km gleichmäßig locker", "intensity": "GA1 (~5:45)", "sollKm": 9.0, "weeklySollKm": 40}, {"week": 2, "date": "26.06.2026", "day": "Fr", "phase": "1 · Wiedereinstieg & Basis", "unit": "Ruhe + Stabi B", "content": "Frei + morgens Stabi B", "intensity": "—", "sollKm": null, "weeklySollKm": 40}, {"week": 2, "date": "27.06.2026", "day": "Sa", "phase": "1 · Wiedereinstieg & Basis", "unit": "Langer Lauf", "content": "14 km gleichmäßig", "intensity": "GA1 (~6:10)", "sollKm": 14.0, "weeklySollKm": 40}, {"week": 2, "date": "28.06.2026", "day": "So", "phase": "1 · Wiedereinstieg & Basis", "unit": "Reg / Rad", "content": "Optional 60 min Rad o. Ruhe", "intensity": "Reg–GA1", "sollKm": null, "weeklySollKm": 40}, {"week": 3, "date": "29.06.2026", "day": "Mo", "phase": "1 · Wiedereinstieg & Basis", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 40}, {"week": 3, "date": "30.06.2026", "day": "Di", "phase": "1 · Wiedereinstieg & Basis", "unit": "Fahrtspiel", "content": "3 km WU + 6×(1' zügig/1' locker) + 2 km CD", "intensity": "GA2–VO2 (B4–B5)", "sollKm": 9.0, "weeklySollKm": 40}, {"week": 3, "date": "01.07.2026", "day": "Mi", "phase": "1 · Wiedereinstieg & Basis", "unit": "DL", "content": "9 km locker", "intensity": "GA1 (~5:45)", "sollKm": 9.0, "weeklySollKm": 40}, {"week": 3, "date": "02.07.2026", "day": "Do", "phase": "1 · Wiedereinstieg & Basis", "unit": "TDL", "content": "2 km WU + 20 min @4:40 + 2 km CD", "intensity": "GA2/Schw. (B4)", "sollKm": 9.0, "weeklySollKm": 40}, {"week": 3, "date": "03.07.2026", "day": "Fr", "phase": "1 · Wiedereinstieg & Basis", "unit": "FREI (Party)", "content": "Firmen-Sommerparty – kein Training", "intensity": "—", "sollKm": null, "weeklySollKm": 40}, {"week": 3, "date": "04.07.2026", "day": "Sa", "phase": "1 · Wiedereinstieg & Basis", "unit": "FREI", "content": "Erholung nach Party", "intensity": "—", "sollKm": null, "weeklySollKm": 40}, {"week": 3, "date": "05.07.2026", "day": "So", "phase": "1 · Wiedereinstieg & Basis", "unit": "Langer Lauf", "content": "16 km gleichmäßig locker", "intensity": "GA1 (~6:10)", "sollKm": 16.0, "weeklySollKm": 40}, {"week": 4, "date": "06.07.2026", "day": "Mo", "phase": "1 · Wiedereinstieg & Basis", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A (leicht)", "intensity": "—", "sollKm": null, "weeklySollKm": 34}, {"week": 4, "date": "07.07.2026", "day": "Di", "phase": "1 · Wiedereinstieg & Basis", "unit": "DL + ST", "content": "8 km locker + 4×100 m ST", "intensity": "GA1 (~5:45)", "sollKm": 8.0, "weeklySollKm": 34}, {"week": 4, "date": "08.07.2026", "day": "Mi", "phase": "1 · Wiedereinstieg & Basis", "unit": "Ruhe / Rad", "content": "Frei o. 40 min Rad", "intensity": "Reg (B1)", "sollKm": null, "weeklySollKm": 34}, {"week": 4, "date": "09.07.2026", "day": "Do", "phase": "1 · Wiedereinstieg & Basis", "unit": "Aktivierung", "content": "2 km WU + 3×1000 m @4:15 (P 2') + 2 km CD", "intensity": "GA2–VO2", "sollKm": 8.0, "weeklySollKm": 34}, {"week": 4, "date": "10.07.2026", "day": "Fr", "phase": "1 · Wiedereinstieg & Basis", "unit": "Ruhe / locker", "content": "Frei o. 3 km locker + 3 ST", "intensity": "Reg (B1)", "sollKm": 3.0, "weeklySollKm": 34}, {"week": 4, "date": "11.07.2026", "day": "Sa", "phase": "1 · Wiedereinstieg & Basis", "unit": "FIRMENLAUF 4 km", "content": "2 km WU+ST → 4 km ALL-OUT → 2 km CD", "intensity": "VO2/Max (B5)", "sollKm": 8.0, "weeklySollKm": 34}, {"week": 4, "date": "12.07.2026", "day": "So", "phase": "1 · Wiedereinstieg & Basis", "unit": "Reg", "content": "6 km ganz locker", "intensity": "Reg (>6:20)", "sollKm": 6.0, "weeklySollKm": 34}, {"week": 5, "date": "13.07.2026", "day": "Mo", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 46}, {"week": 5, "date": "14.07.2026", "day": "Di", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "INT (VO2)", "content": "3 km WU + 5×3 min @4:05–4:10 (P 2') + 2 km CD", "intensity": "VO2 (B5, 178–186)", "sollKm": 10.0, "weeklySollKm": 46}, {"week": 5, "date": "15.07.2026", "day": "Mi", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "DL", "content": "9 km locker", "intensity": "GA1 (~5:45)", "sollKm": 9.0, "weeklySollKm": 46}, {"week": 5, "date": "16.07.2026", "day": "Do", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "TDL", "content": "2 km WU + 2×12 min @4:35 (P 2') + 2 km CD", "intensity": "GA2/Schw. (B4)", "sollKm": 10.0, "weeklySollKm": 46}, {"week": 5, "date": "17.07.2026", "day": "Fr", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Ruhe + Stabi B", "content": "Frei + Stabi B", "intensity": "—", "sollKm": null, "weeklySollKm": 46}, {"week": 5, "date": "18.07.2026", "day": "Sa", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Langer Lauf", "content": "17 km, letzte 3 km @4:55", "intensity": "GA1 → GA1/2", "sollKm": 17.0, "weeklySollKm": 46}, {"week": 5, "date": "19.07.2026", "day": "So", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Reg / Rad", "content": "Optional 60 min Rad", "intensity": "Reg–GA1", "sollKm": null, "weeklySollKm": 46}, {"week": 6, "date": "20.07.2026", "day": "Mo", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 52}, {"week": 6, "date": "21.07.2026", "day": "Di", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "TDL Schwelle", "content": "3 km WU + 25 min @4:35–4:40 + 2 km CD", "intensity": "GA2/Schw. (B4)", "sollKm": 10.0, "weeklySollKm": 52}, {"week": 6, "date": "22.07.2026", "day": "Mi", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "DL + ST", "content": "10 km locker + 5 ST", "intensity": "GA1 (~5:45)", "sollKm": 10.0, "weeklySollKm": 52}, {"week": 6, "date": "23.07.2026", "day": "Do", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "INT (VO2)", "content": "3 km WU + 6×3 min @4:05 (P 2') + 2 km CD", "intensity": "VO2 (B5)", "sollKm": 11.0, "weeklySollKm": 52}, {"week": 6, "date": "24.07.2026", "day": "Fr", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Ruhe + Stabi B", "content": "Frei + Stabi B", "intensity": "—", "sollKm": null, "weeklySollKm": 52}, {"week": 6, "date": "25.07.2026", "day": "Sa", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Langer Lauf", "content": "19 km, mittlere 5 km @5:00", "intensity": "GA1 → GA1/2", "sollKm": 19.0, "weeklySollKm": 52}, {"week": 6, "date": "26.07.2026", "day": "So", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Reg / Rad", "content": "Optional 5 km Reg o. Rad", "intensity": "Reg (B1)", "sollKm": 5.0, "weeklySollKm": 52}, {"week": 7, "date": "27.07.2026", "day": "Mo", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 56}, {"week": 7, "date": "28.07.2026", "day": "Di", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "INT", "content": "3 km WU + 5×1000 m @4:05 (P 2:30) + 2 km CD", "intensity": "VO2 (B5)", "sollKm": 11.0, "weeklySollKm": 56}, {"week": 7, "date": "29.07.2026", "day": "Mi", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "DL", "content": "11 km locker", "intensity": "GA1 (~5:45)", "sollKm": 11.0, "weeklySollKm": 56}, {"week": 7, "date": "30.07.2026", "day": "Do", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "TDL", "content": "2 km WU + 2×15 min @4:30 (P 3') + 2 km CD", "intensity": "GA2/Schw. (B4)", "sollKm": 12.0, "weeklySollKm": 56}, {"week": 7, "date": "31.07.2026", "day": "Fr", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Ruhe + Stabi B", "content": "Frei + Stabi B", "intensity": "—", "sollKm": null, "weeklySollKm": 56}, {"week": 7, "date": "01.08.2026", "day": "Sa", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Langer Lauf", "content": "21 km, letzte 6 km progressiv bis 4:55", "intensity": "GA1 → GA1/2", "sollKm": 21.0, "weeklySollKm": 56}, {"week": 7, "date": "02.08.2026", "day": "So", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Rad", "content": "Optional 75 min Rad locker", "intensity": "GA1", "sollKm": null, "weeklySollKm": 56}, {"week": 8, "date": "03.08.2026", "day": "Mo", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A (leicht)", "intensity": "—", "sollKm": null, "weeklySollKm": 42}, {"week": 8, "date": "04.08.2026", "day": "Di", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "DL + ST", "content": "8 km locker + 4×100 m ST", "intensity": "GA1 (~5:45)", "sollKm": 8.0, "weeklySollKm": 42}, {"week": 8, "date": "05.08.2026", "day": "Mi", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Ruhe / Rad", "content": "Frei o. 40 min Rad", "intensity": "Reg (B1)", "sollKm": null, "weeklySollKm": 42}, {"week": 8, "date": "06.08.2026", "day": "Do", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Aktivierung", "content": "2 km WU + 3×400 m flott (P 2') + 2 km CD", "intensity": "VO2 (B5)", "sollKm": 7.0, "weeklySollKm": 42}, {"week": 8, "date": "07.08.2026", "day": "Fr", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Ruhe / locker", "content": "Frei o. 3 km locker + 3 ST", "intensity": "Reg (B1)", "sollKm": 3.0, "weeklySollKm": 42}, {"week": 8, "date": "08.08.2026", "day": "Sa", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "10-km-TEST", "content": "2 km WU+ST → 10 km all-out → 2 km CD", "intensity": "VO2/WK (B5)", "sollKm": 14.0, "weeklySollKm": 42}, {"week": 8, "date": "09.08.2026", "day": "So", "phase": "2 · Aerobe Kraft & Schwelle", "unit": "Reg", "content": "5 km ganz locker", "intensity": "Reg (B1)", "sollKm": 5.0, "weeklySollKm": 42}, {"week": 9, "date": "10.08.2026", "day": "Mo", "phase": "3 · Spezifisch / Peak", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 56}, {"week": 9, "date": "11.08.2026", "day": "Di", "phase": "3 · Spezifisch / Peak", "unit": "INT (VO2)", "content": "3 km WU + 6×3 min @4:00–4:05 (P 2') + 2 km CD", "intensity": "VO2 (B5)", "sollKm": 11.0, "weeklySollKm": 56}, {"week": 9, "date": "12.08.2026", "day": "Mi", "phase": "3 · Spezifisch / Peak", "unit": "DL + ST", "content": "10 km locker + 5 ST", "intensity": "GA1 (~5:45)", "sollKm": 10.0, "weeklySollKm": 56}, {"week": 9, "date": "13.08.2026", "day": "Do", "phase": "3 · Spezifisch / Peak", "unit": "RT Renntempo", "content": "3 km WU + 5 km @4:18 + 2 km CD", "intensity": "RT/GA2", "sollKm": 10.0, "weeklySollKm": 56}, {"week": 9, "date": "14.08.2026", "day": "Fr", "phase": "3 · Spezifisch / Peak", "unit": "Ruhe + Stabi B", "content": "Frei + Stabi B", "intensity": "—", "sollKm": null, "weeklySollKm": 56}, {"week": 9, "date": "15.08.2026", "day": "Sa", "phase": "3 · Spezifisch / Peak", "unit": "Langer Lauf", "content": "20 km, letzte 4 km @RT (4:18)", "intensity": "GA1 → RT", "sollKm": 20.0, "weeklySollKm": 56}, {"week": 9, "date": "16.08.2026", "day": "So", "phase": "3 · Spezifisch / Peak", "unit": "Reg / Rad", "content": "5 km Reg o. 75 min Rad", "intensity": "Reg–GA1", "sollKm": 5.0, "weeklySollKm": 56}, {"week": 10, "date": "17.08.2026", "day": "Mo", "phase": "3 · Spezifisch / Peak", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 62}, {"week": 10, "date": "18.08.2026", "day": "Di", "phase": "3 · Spezifisch / Peak", "unit": "TDL Schwelle", "content": "3 km WU + 3×10 min @4:25 (P 2') + 2 km CD", "intensity": "GA2/Schw. (B4)", "sollKm": 12.0, "weeklySollKm": 62}, {"week": 10, "date": "19.08.2026", "day": "Mi", "phase": "3 · Spezifisch / Peak", "unit": "DL", "content": "11 km locker", "intensity": "GA1 (~5:45)", "sollKm": 11.0, "weeklySollKm": 62}, {"week": 10, "date": "20.08.2026", "day": "Do", "phase": "3 · Spezifisch / Peak", "unit": "RT", "content": "3 km WU + 6–7 km @4:17 + 2 km CD", "intensity": "RT/GA2", "sollKm": 11.5, "weeklySollKm": 62}, {"week": 10, "date": "21.08.2026", "day": "Fr", "phase": "3 · Spezifisch / Peak", "unit": "Ruhe + Stabi B", "content": "Frei + Stabi B", "intensity": "—", "sollKm": null, "weeklySollKm": 62}, {"week": 10, "date": "22.08.2026", "day": "Sa", "phase": "3 · Spezifisch / Peak", "unit": "Langer Lauf", "content": "23 km, mittlere 8 km @5:00, letzte 3 km @RT", "intensity": "GA1 → RT", "sollKm": 23.0, "weeklySollKm": 62}, {"week": 10, "date": "23.08.2026", "day": "So", "phase": "3 · Spezifisch / Peak", "unit": "Rad / Reg", "content": "90 min Rad o. 5 km Reg", "intensity": "Reg–GA1", "sollKm": 5.0, "weeklySollKm": 62}, {"week": 11, "date": "24.08.2026", "day": "Mo", "phase": "3 · Spezifisch / Peak", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 70}, {"week": 11, "date": "25.08.2026", "day": "Di", "phase": "3 · Spezifisch / Peak", "unit": "INT", "content": "3 km WU + 5×1000 m @4:02–4:05 (P 2:30) + 2 km CD", "intensity": "VO2 (B5)", "sollKm": 12.0, "weeklySollKm": 70}, {"week": 11, "date": "26.08.2026", "day": "Mi", "phase": "3 · Spezifisch / Peak", "unit": "DL + ST", "content": "12 km locker + 5 ST", "intensity": "GA1 (~5:45)", "sollKm": 12.0, "weeklySollKm": 70}, {"week": 11, "date": "27.08.2026", "day": "Do", "phase": "3 · Spezifisch / Peak", "unit": "RT-Schwelle", "content": "3 km WU + 2×4 km @4:18 (P 3') + 2 km CD", "intensity": "RT/GA2", "sollKm": 13.0, "weeklySollKm": 70}, {"week": 11, "date": "28.08.2026", "day": "Fr", "phase": "3 · Spezifisch / Peak", "unit": "Ruhe + Stabi B", "content": "Frei + Stabi B", "intensity": "—", "sollKm": null, "weeklySollKm": 70}, {"week": 11, "date": "29.08.2026", "day": "Sa", "phase": "3 · Spezifisch / Peak", "unit": "Langer Lauf (PEAK)", "content": "26 km, letzte 8 km progressiv bis RT", "intensity": "GA1 → RT", "sollKm": 26.0, "weeklySollKm": 70}, {"week": 11, "date": "30.08.2026", "day": "So", "phase": "3 · Spezifisch / Peak", "unit": "Reg / Rad", "content": "7 km Reg o. 90 min Rad", "intensity": "Reg (B1)", "sollKm": 7.0, "weeklySollKm": 70}, {"week": 12, "date": "31.08.2026", "day": "Mo", "phase": "3 · Spezifisch / Peak", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 56}, {"week": 12, "date": "01.09.2026", "day": "Di", "phase": "3 · Spezifisch / Peak", "unit": "DL + ST", "content": "10 km locker + 6×100 m ST", "intensity": "GA1 (~5:45)", "sollKm": 10.0, "weeklySollKm": 56}, {"week": 12, "date": "02.09.2026", "day": "Mi", "phase": "3 · Spezifisch / Peak", "unit": "RT (Schlüssel)", "content": "3 km WU + 8 km @4:16 + 2 km CD", "intensity": "RT/GA2", "sollKm": 13.0, "weeklySollKm": 56}, {"week": 12, "date": "03.09.2026", "day": "Do", "phase": "3 · Spezifisch / Peak", "unit": "DL", "content": "9 km locker", "intensity": "GA1 (~5:45)", "sollKm": 9.0, "weeklySollKm": 56}, {"week": 12, "date": "04.09.2026", "day": "Fr", "phase": "3 · Spezifisch / Peak", "unit": "Ruhe + Stabi B", "content": "Frei + Stabi B", "intensity": "—", "sollKm": null, "weeklySollKm": 56}, {"week": 12, "date": "05.09.2026", "day": "Sa", "phase": "3 · Spezifisch / Peak", "unit": "Langer Lauf", "content": "18 km mit 2×5 km @RT (P 1 km locker)", "intensity": "GA1 / RT", "sollKm": 18.0, "weeklySollKm": 56}, {"week": 12, "date": "06.09.2026", "day": "So", "phase": "3 · Spezifisch / Peak", "unit": "Rad / Reg", "content": "60 min Rad o. Ruhe", "intensity": "Reg–GA1", "sollKm": null, "weeklySollKm": 56}, {"week": 13, "date": "07.09.2026", "day": "Mo", "phase": "3 · Spezifisch / Peak", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 64}, {"week": 13, "date": "08.09.2026", "day": "Di", "phase": "3 · Spezifisch / Peak", "unit": "DL + ST", "content": "10 km locker + 6×100 m ST", "intensity": "GA1 (~5:45)", "sollKm": 10.0, "weeklySollKm": 64}, {"week": 13, "date": "09.09.2026", "day": "Mi", "phase": "3 · Spezifisch / Peak", "unit": "DL", "content": "11 km locker", "intensity": "GA1 (~5:45)", "sollKm": 11.0, "weeklySollKm": 64}, {"week": 13, "date": "10.09.2026", "day": "Do", "phase": "3 · Spezifisch / Peak", "unit": "TDL Schwelle", "content": "3 km WU + 3×12 min @4:22 (P 2') + 2 km CD", "intensity": "GA2/Schw. (B4)", "sollKm": 13.0, "weeklySollKm": 64}, {"week": 13, "date": "11.09.2026", "day": "Fr", "phase": "3 · Spezifisch / Peak", "unit": "Ruhe + Stabi B", "content": "Frei + Stabi B", "intensity": "—", "sollKm": null, "weeklySollKm": 64}, {"week": 13, "date": "12.09.2026", "day": "Sa", "phase": "3 · Spezifisch / Peak", "unit": "Langer Lauf RT (Schlüssel)", "content": "24 km mit 3×4 km @4:16 (P 1 km locker)", "intensity": "GA1 / RT", "sollKm": 24.0, "weeklySollKm": 64}, {"week": 13, "date": "13.09.2026", "day": "So", "phase": "3 · Spezifisch / Peak", "unit": "Reg / Rad", "content": "6 km Reg o. Rad", "intensity": "Reg (B1)", "sollKm": 6.0, "weeklySollKm": 64}, {"week": 14, "date": "14.09.2026", "day": "Mo", "phase": "4 · Schärfung & Tapering", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A", "intensity": "—", "sollKm": null, "weeklySollKm": 56}, {"week": 14, "date": "15.09.2026", "day": "Di", "phase": "4 · Schärfung & Tapering", "unit": "RT", "content": "3 km WU + 6 km @4:14 + 2 km CD", "intensity": "RT/GA2", "sollKm": 11.0, "weeklySollKm": 56}, {"week": 14, "date": "16.09.2026", "day": "Mi", "phase": "4 · Schärfung & Tapering", "unit": "DL", "content": "10 km locker", "intensity": "GA1 (~5:45)", "sollKm": 10.0, "weeklySollKm": 56}, {"week": 14, "date": "17.09.2026", "day": "Do", "phase": "4 · Schärfung & Tapering", "unit": "INT (kurz)", "content": "3 km WU + 5×3 min @4:00 (P 2 min) + 2 km CD", "intensity": "VO2 (B5)", "sollKm": 10.0, "weeklySollKm": 56}, {"week": 14, "date": "18.09.2026", "day": "Fr", "phase": "4 · Schärfung & Tapering", "unit": "Ruhe + Stabi B", "content": "Frei + Stabi B (leicht)", "intensity": "—", "sollKm": null, "weeklySollKm": 56}, {"week": 14, "date": "19.09.2026", "day": "Sa", "phase": "4 · Schärfung & Tapering", "unit": "Langer Lauf", "content": "18 km, letzte 5 km @RT", "intensity": "GA1 → RT", "sollKm": 18.0, "weeklySollKm": 56}, {"week": 14, "date": "20.09.2026", "day": "So", "phase": "4 · Schärfung & Tapering", "unit": "Reg", "content": "5 km locker o. Ruhe", "intensity": "Reg (B1)", "sollKm": 5.0, "weeklySollKm": 56}, {"week": 15, "date": "21.09.2026", "day": "Mo", "phase": "4 · Schärfung & Tapering", "unit": "Ruhe + Stabi A", "content": "Frei + Stabi A (kurz)", "intensity": "—", "sollKm": null, "weeklySollKm": 42}, {"week": 15, "date": "22.09.2026", "day": "Di", "phase": "4 · Schärfung & Tapering", "unit": "RT", "content": "2 km WU + 5×1 km @4:14 (P 90 s) + 2 km CD", "intensity": "RT/GA2", "sollKm": 10.0, "weeklySollKm": 42}, {"week": 15, "date": "23.09.2026", "day": "Mi", "phase": "4 · Schärfung & Tapering", "unit": "DL", "content": "8 km locker", "intensity": "GA1 (~5:45)", "sollKm": 8.0, "weeklySollKm": 42}, {"week": 15, "date": "24.09.2026", "day": "Do", "phase": "4 · Schärfung & Tapering", "unit": "TDL (kurz)", "content": "2 km WU + 2×8 min @4:25 (P 2') + 2 km CD", "intensity": "GA2/Schw. (B4)", "sollKm": 9.0, "weeklySollKm": 42}, {"week": 15, "date": "25.09.2026", "day": "Fr", "phase": "4 · Schärfung & Tapering", "unit": "Ruhe", "content": "Frei. Mobility.", "intensity": "—", "sollKm": null, "weeklySollKm": 42}, {"week": 15, "date": "26.09.2026", "day": "Sa", "phase": "4 · Schärfung & Tapering", "unit": "Langer Lauf (kurz)", "content": "13 km, davon 3 km @RT", "intensity": "GA1 / RT", "sollKm": 13.0, "weeklySollKm": 42}, {"week": 15, "date": "27.09.2026", "day": "So", "phase": "4 · Schärfung & Tapering", "unit": "Ruhe", "content": "Frei", "intensity": "—", "sollKm": null, "weeklySollKm": 42}, {"week": 16, "date": "28.09.2026", "day": "Mo", "phase": "4 · Schärfung & Tapering", "unit": "Ruhe + Mobility", "content": "Frei. Leichte Mobility", "intensity": "—", "sollKm": null, "weeklySollKm": 21}, {"week": 16, "date": "29.09.2026", "day": "Di", "phase": "4 · Schärfung & Tapering", "unit": "DL + ST", "content": "7 km locker + 4×100 m ST", "intensity": "GA1 (~5:45)", "sollKm": 7.0, "weeklySollKm": 21}, {"week": 16, "date": "30.09.2026", "day": "Mi", "phase": "4 · Schärfung & Tapering", "unit": "Ruhe / Reg", "content": "Frei o. 5 km ganz locker", "intensity": "Reg (B1)", "sollKm": 5.0, "weeklySollKm": 21}, {"week": 16, "date": "01.10.2026", "day": "Do", "phase": "4 · Schärfung & Tapering", "unit": "Schärfung", "content": "2 km WU + 3×3 min @RT (4:16) + 2 km CD", "intensity": "RT (GA2)", "sollKm": 7.0, "weeklySollKm": 21}, {"week": 16, "date": "02.10.2026", "day": "Fr", "phase": "4 · Schärfung & Tapering", "unit": "Ruhe / Anreise", "content": "Anreise Köln, KH-Loading. Opt. 20 min locker", "intensity": "Reg (B1)", "sollKm": 4.0, "weeklySollKm": 21}, {"week": 16, "date": "03.10.2026", "day": "Sa", "phase": "4 · Schärfung & Tapering", "unit": "Shakeout", "content": "4 km locker + 3×100 m ST. Startunterlagen", "intensity": "Reg–GA1", "sollKm": 4.0, "weeklySollKm": 21}, {"week": 16, "date": "04.10.2026", "day": "So", "phase": "4 · Schärfung & Tapering", "unit": "HALBMARATHON", "content": "21,1 km @4:16/km — Ziel 1:30:00", "intensity": "RT (GA2)", "sollKm": 21.0, "weeklySollKm": 21}];
 const RACE_DATE=new Date('2026-10-04');
 const STORAGE_KEY='hm_koeln_v2';
-const PHASE_COLORS={'1':'#3b82f6','2':'#f59e0b','3':'#ef4444','4':'#a78bfa'};
+const PHASE_COLORS={'1':'var(--blue)','2':'var(--amber)','3':'var(--red)','4':'var(--purple)'};const PHASE_DIMS={'1':'var(--blue-dim)','2':'var(--amber-dim)','3':'var(--red-dim)','4':'var(--purple-dim)'};
 const PHASE_NAMES={'1':'Basis','2':'Schwelle','3':'Peak','4':'Tapering'};
 const ROUTINE_ITEMS=[{id:'stabiA',label:'Stabi A'},{id:'stabiB',label:'Stabi B'},{id:'mob1',label:'Mobility 1'},{id:'mob2',label:'Mobility 2'}];
 const EXTRA_TYPES=['Rad','Wandern','Schwimmen','Yoga / Mobility','Kraft','Skifahren','Sonstiges'];
@@ -494,7 +549,7 @@ function today(){const t=new Date();t.setHours(0,0,0,0);return t}
 function daysLeft(){const r=new Date(RACE_DATE);r.setHours(0,0,0,0);return Math.max(0,Math.round((r-today())/86400000))}
 function getCurrentWeek(){const t=today();for(let w=16;w>=1;w--){const f=PLAN.find(e=>e.week===w);if(f&&t>=parseDate(f.date))return w;}return 1;}
 function getPhaseNum(p){const m=p&&p.match(/^(\d)/);return m?m[1]:'1'}
-function getPhaseColor(p){return PHASE_COLORS[getPhaseNum(p)]||'#3b82f6'}
+function getPhaseColor(p){return PHASE_COLORS[getPhaseNum(p)]||'var(--blue)'}
 function isRest(u){
   if(!u)return true;
   const k=u.toUpperCase();
@@ -511,51 +566,67 @@ function isRest(u){
 }
 function getRpeClass(r){if(!r)return'';if(r<=3)return'ic-rpe-easy';if(r<=5)return'ic-rpe-mod';if(r<=7)return'ic-rpe-hard';return'ic-rpe-max'}
 function getBadge(u){
-  if(!u)return{label:'—',bg:'rgba(107,116,148,0.1)',color:'#3e4a65',accent:''};
+  if(!u)return{label:'—',bg:'var(--gray-dim)',color:'var(--faint)',accent:''};
   const k=u.toUpperCase();
   // Ruhe/Erholung zuerst prüfen
-  if(k.includes('RUHE')||k.includes('FREI')||k.includes('STABI')||k.includes('MOBILITY'))return{label:'—',bg:'rgba(107,116,148,0.1)',color:'#3e4a65',accent:''};
-  if((k.startsWith('REG')||k.includes('/ REG')||k.includes('/ RUHE'))&&!k.includes('REGENERA'))return{label:'REG',bg:'rgba(107,116,148,0.15)',color:'#7d8aaa',accent:''};
-  if(k.startsWith('RAD')&&!k.includes('DL'))return{label:'RAD',bg:'rgba(107,116,148,0.15)',color:'#7d8aaa',accent:''};
-  if(k.includes('SHAKEOUT'))return{label:'SHAKE',bg:'rgba(107,116,148,0.15)',color:'#7d8aaa',accent:''};
-  if(k.includes('HALBMARATHON')||k.includes('WETTKAMPF'))return{label:'RACE',bg:'rgba(34,197,94,0.2)',color:'#22c55e',accent:'accent-race'};
-  if(k.startsWith('INT'))return{label:'INT',bg:'rgba(240,69,69,0.2)',color:'#f04545',accent:'accent-int'};
-  if(k.includes('VO2'))return{label:'VO2',bg:'rgba(240,69,69,0.2)',color:'#f04545',accent:'accent-int'};
-  if(k.startsWith('TDL')||k.includes('SCHWELLE'))return{label:'TDL',bg:'rgba(245,158,11,0.2)',color:'#f59e0b',accent:'accent-tdl'};
-  if(k.startsWith('RT')||k.includes('RENNTEMPO'))return{label:'RT',bg:'rgba(245,158,11,0.2)',color:'#f59e0b',accent:'accent-rt'};
-  if(k.includes('LANGER')||k.includes('PEAK'))return{label:'LL',bg:'rgba(45,212,191,0.2)',color:'#2dd4bf',accent:'accent-ll'};
-  if(k.startsWith('DL')||k.includes('DAUERLAUF'))return{label:'DL',bg:'rgba(79,142,247,0.18)',color:'#4f8ef7',accent:'accent-dl'};
-  if(k.includes('FAHRTSPIEL'))return{label:'FS',bg:'rgba(240,69,69,0.18)',color:'#f04545',accent:'accent-int'};
-  if(k.includes('FIRMENLAUF')||k.includes('10-KM'))return{label:'RACE',bg:'rgba(34,197,94,0.2)',color:'#22c55e',accent:'accent-race'};
-  if(k.includes('TEST')||k.includes('AKTIVIERUNG'))return{label:'TEST',bg:'rgba(245,158,11,0.18)',color:'#f59e0b',accent:'accent-tdl'};
-  if(k.includes('REG')||k.includes('RAD'))return{label:'REG',bg:'rgba(107,116,148,0.15)',color:'#7d8aaa',accent:''};
-  return{label:'DL',bg:'rgba(79,142,247,0.18)',color:'#4f8ef7',accent:'accent-dl'};
+  if(k.includes('RUHE')||k.includes('FREI')||k.includes('STABI')||k.includes('MOBILITY'))return{label:'—',bg:'var(--gray-dim)',color:'var(--faint)',accent:''};
+  if((k.startsWith('REG')||k.includes('/ REG')||k.includes('/ RUHE'))&&!k.includes('REGENERA'))return{label:'REG',bg:'var(--gray-dim)',color:'var(--muted)',accent:''};
+  if(k.startsWith('RAD')&&!k.includes('DL'))return{label:'RAD',bg:'var(--gray-dim)',color:'var(--muted)',accent:''};
+  if(k.includes('SHAKEOUT'))return{label:'SHAKE',bg:'var(--gray-dim)',color:'var(--muted)',accent:''};
+  if(k.includes('HALBMARATHON')||k.includes('WETTKAMPF'))return{label:'RACE',bg:'var(--green-dim)',color:'var(--green)',accent:'accent-race'};
+  if(k.startsWith('INT'))return{label:'INT',bg:'var(--red-dim)',color:'var(--red)',accent:'accent-int'};
+  if(k.includes('VO2'))return{label:'VO2',bg:'var(--red-dim)',color:'var(--red)',accent:'accent-int'};
+  if(k.startsWith('TDL')||k.includes('SCHWELLE'))return{label:'TDL',bg:'var(--amber-dim)',color:'var(--amber)',accent:'accent-tdl'};
+  if(k.startsWith('RT')||k.includes('RENNTEMPO'))return{label:'RT',bg:'var(--amber-dim)',color:'var(--amber)',accent:'accent-rt'};
+  if(k.includes('LANGER')||k.includes('PEAK'))return{label:'LL',bg:'var(--teal-dim)',color:'var(--teal)',accent:'accent-ll'};
+  if(k.startsWith('DL')||k.includes('DAUERLAUF'))return{label:'DL',bg:'var(--blue-dim)',color:'var(--blue)',accent:'accent-dl'};
+  if(k.includes('FAHRTSPIEL'))return{label:'FS',bg:'var(--red-dim)',color:'var(--red)',accent:'accent-int'};
+  if(k.includes('FIRMENLAUF')||k.includes('10-KM'))return{label:'RACE',bg:'var(--green-dim)',color:'var(--green)',accent:'accent-race'};
+  if(k.includes('TEST')||k.includes('AKTIVIERUNG'))return{label:'TEST',bg:'var(--amber-dim)',color:'var(--amber)',accent:'accent-tdl'};
+  if(k.includes('REG')||k.includes('RAD'))return{label:'REG',bg:'var(--gray-dim)',color:'var(--muted)',accent:''};
+  return{label:'DL',bg:'var(--blue-dim)',color:'var(--blue)',accent:'accent-dl'};
 }
 function weekEntries(w){return PLAN.filter(e=>e.week===w)}
 function calcWeekStats(w){
-  let ist=0,soll=0,done=0,total=0;
-  for(const e of weekEntries(w)){
+  let ist=0,soll=0,done=0,total=0,offDays=0,offKm=0,mandMissed=0;
+  const t=today();
+  for(const e of getWeekPlan(w)){
     if(e.sollKm)soll+=e.sollKm;
     const s=state[e.date];
+    if(s?.off){offDays++;if(e.sollKm)offKm+=e.sollKm;}
     if(s?.istKm){ist+=parseFloat(s.istKm)||0;}
     else if(s?.done&&e.sollKm){ist+=e.sollKm;}// auto-fill wenn abgehakt aber kein km
-    if(!isRest(e.unit)){total++;if(s?.done)done++;}
+    if(!isRest(e.unit)&&!s?.off){total++;if(s?.done)done++;}
+    if(isMandatory(e)&&!s?.off&&!s?.done&&parseDate(e.date)<t)mandMissed++;
     for(const ex of(state['extras_d'+e.date]||[]))ist+=parseFloat(ex.km)||0;
   }
-  return{ist:Math.round(ist*10)/10,soll:Math.round(soll),done,total};
+  return{ist:Math.round(ist*10)/10,soll:Math.round(soll),done,total,offDays,offKm:Math.round(offKm),mandMissed};
 }
 function calcTotals(){
-  let unitsDone=0,totalIst=0,totalSoll=0;
-  const countable=PLAN.filter(e=>!isRest(e.unit));
-  for(const e of countable)if(state[e.date]?.done)unitsDone++;
-  for(const e of PLAN){
+  let unitsDone=0,unitsTotal=0,totalIst=0,totalSoll=0;
+  for(const e of fullPlan()){
     const sd=state[e.date];
+    if(!isRest(e.unit)&&!sd?.off){unitsTotal++;if(sd?.done)unitsDone++;}
     if(sd?.istKm){totalIst+=parseFloat(sd.istKm)||0;}
     else if(sd?.done&&e.sollKm){totalIst+=e.sollKm;}// auto-fill
     if(e.sollKm)totalSoll+=e.sollKm;
     for(const ex of(state['extras_d'+e.date]||[]))totalIst+=parseFloat(ex.km)||0;
   }
-  return{unitsDone,unitsTotal:countable.length,totalIst:Math.round(totalIst*10)/10,totalSoll:Math.round(totalSoll)};
+  return{unitsDone,unitsTotal,totalIst:Math.round(totalIst*10)/10,totalSoll:Math.round(totalSoll)};
+}
+// Wochen-Status für Konsistenz: erfüllt = IST >= 90% Soll (ohne Ausfalltage) UND keine Pflicht-Einheit ausgelassen
+function weekStatus(w){
+  const es=getWeekPlan(w),t=today();
+  if(!es.length||parseDate(es[0].date)>t)return'future';
+  const st=calcWeekStats(w);
+  if(parseDate(es[es.length-1].date)>=t)return'running';
+  if(st.offDays>=4)return'off';
+  const effSoll=Math.max(0,st.soll-st.offKm);
+  const kmOK=effSoll===0||st.ist>=0.9*effSoll;
+  if(kmOK&&st.mandMissed===0)return'full';
+  if(st.ist===0&&st.done===0)return'none';
+  if(!kmOK&&st.mandMissed>1)return'none';
+  return'partial';
 }
 function loadLocal(){
   try{state=JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch(e){state={};}
@@ -565,16 +636,53 @@ function loadLocal(){
   const ls=localStorage.getItem('hm_last_synced');lastSynced=ls?new Date(ls):null;
 }
 function saveLocal(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}
+function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function touch(key){const m=state._meta||(state._meta={});m[key]=Date.now();}
+// Effektiver Wochenplan: berücksichtigt getauschte Einheiten (state['order_w'+w] = Permutation der Slot-Indizes)
+function getWeekPlan(w){
+  const es=weekEntries(w),o=state['order_w'+w];
+  if(!Array.isArray(o)||o.length!==es.length||o.some(i=>typeof i!=='number'||i<0||i>=es.length))return es;
+  return es.map((slot,i)=>{const src=es[o[i]]||slot;return Object.assign({},slot,{unit:src.unit,content:src.content,intensity:src.intensity,sollKm:src.sollKm});});
+}
+function planByDate(date){
+  const e=PLAN.find(x=>x.date===date);if(!e)return null;
+  return getWeekPlan(e.week).find(x=>x.date===date)||e;
+}
+function fullPlan(){const f=[];for(let w=1;w<=16;w++)f.push(...getWeekPlan(w));return f;}
+// Pflicht-Einheit: kein Ruhetag, keine Reg-/Rad-/Shakeout-Einheit, nicht optional
+function isMandatory(e){
+  if(isRest(e.unit))return false;
+  const b=getBadge(e.unit).label;
+  if(b==='REG'||b==='RAD'||b==='SHAKE'||b==='—')return false;
+  if(/^(optional|opt\.)/i.test((e.content||'').trim()))return false;
+  return true;
+}
+let pendingPush=false,syncLoading=false;
 async function syncFromGist(){
-  if(!syncPat||!syncGistId)return;setSyncStatus('busy','Laden...');
+  if(!syncPat||!syncGistId||syncLoading)return;syncLoading=true;setSyncStatus('busy','Laden...');
   try{
     const r=await fetch('https://api.github.com/gists/'+syncGistId,{headers:{Authorization:'token '+syncPat,Accept:'application/vnd.github.v3+json'}});
     if(!r.ok)throw new Error('HTTP '+r.status);
     const data=await r.json();const file=data.files[syncFilename];
-    if(file?.content){const remote=JSON.parse(file.content);state={...state,...remote};saveLocal();}
+    if(file?.content){
+      // Merge pro Eintrag nach Zeitstempel: neuere lokale Änderungen überleben ein Laden vom Gist
+      const remote=JSON.parse(file.content);
+      const lm=state._meta||{},rm=remote._meta||{};
+      const merged=Object.assign({},state,remote);
+      let localNewer=false;
+      for(const k of Object.keys(state)){
+        if(k==='_meta')continue;
+        if((lm[k]||0)>(rm[k]||0)){merged[k]=state[k];localNewer=true;}
+      }
+      const meta=Object.assign({},rm);
+      for(const k of Object.keys(lm))meta[k]=Math.max(lm[k]||0,rm[k]||0);
+      merged._meta=meta;
+      state=merged;saveLocal();
+      if(localNewer)pushToGist();
+    }
     lastSynced=new Date();localStorage.setItem('hm_last_synced',lastSynced.toISOString());
     setSyncStatus('ok',fmtSyncTime());renderAll();
-  }catch(e){setSyncStatus('err','Fehler');showToast('Sync-Fehler: '+e.message);}
+  }catch(e){setSyncStatus('err','Fehler');showToast('Sync-Fehler: '+e.message);}finally{syncLoading=false;}
 }
 async function pushToGist(){
   if(!syncPat||!syncGistId||syncBusy)return;
@@ -583,9 +691,16 @@ async function pushToGist(){
     const body={files:{}};body.files[syncFilename]={content:JSON.stringify(state)};
     const r=await fetch('https://api.github.com/gists/'+syncGistId,{method:'PATCH',headers:{Authorization:'token '+syncPat,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
     if(!r.ok)throw new Error('HTTP '+r.status);
+    pendingPush=false;
     lastSynced=new Date();localStorage.setItem('hm_last_synced',lastSynced.toISOString());setSyncStatus('ok',fmtSyncTime());
-  }catch(e){setSyncStatus('err','Sync-Fehler');}finally{syncBusy=false;}
+  }catch(e){pendingPush=true;setSyncStatus('err','Sync-Fehler');}finally{syncBusy=false;}
 }
+window.addEventListener('online',()=>{if(pendingPush)pushToGist();});
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  if(pendingPush)pushToGist();
+  else if(syncPat&&syncGistId)syncFromGist();
+});
 function fmtSyncTime(){if(!lastSynced)return'—';return lastSynced.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});}
 function setSyncStatus(s,l){
   document.getElementById('sync-dot').className='sync-dot '+s;
@@ -595,8 +710,8 @@ function setSyncStatus(s,l){
 }
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);}
 function exportCSV(){
-  const rows=[['Datum','Tag','Woche','Phase','Einheit','Inhalt','Soll km','IST km','Pace','RPE','Notizen','Erledigt']];
-  for(const e of PLAN){const s=state[e.date]||{};rows.push([e.date,e.day,e.week,e.phase,e.unit,e.content,e.sollKm||'',s.istKm||'',s.pace||'',s.rpe||'',s.notes||'',s.done?'ja':'nein']);}
+  const rows=[['Datum','Tag','Woche','Phase','Einheit','Inhalt','Soll km','IST km','Pace','RPE','Notizen','Erledigt','Ausfall','Extras']];
+  for(const e of fullPlan()){const s=state[e.date]||{};const ex=(state['extras_d'+e.date]||[]).map(x=>x.type+' '+(x.km||'')).join(' | ');rows.push([e.date,e.day,e.week,e.phase,e.unit,e.content,e.sollKm||'',s.istKm||'',s.pace||'',s.rpe||'',s.notes||'',s.done===true?'ja':s.done==='partial'?'teilweise':'nein',s.off||'',ex]);}
   const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
   const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\ufeff'+encodeURIComponent(csv);a.download='HM-Koeln-2026-Tracker.csv';a.click();
 }
@@ -631,12 +746,12 @@ function renderPhasebar(cw){
     const e=PLAN.find(x=>x.week===w),ph=getPhaseNum(e?.phase||'1');
     const seg=document.createElement('div');
     seg.className='phase-seg'+(w<cw?' done':w===cw?' active':'');
-    seg.style.background=PHASE_COLORS[ph]||'#3b82f6';bar.appendChild(seg);
+    seg.style.background=PHASE_COLORS[ph]||'var(--blue)';bar.appendChild(seg);
   }
 }
 function renderNextCard(cw){
   const wrap=document.getElementById('next-card-wrap'),t=today();
-  const next=PLAN.find(e=>parseDate(e.date)>=t&&!state[e.date]?.done&&!isRest(e.unit));
+  const next=fullPlan().find(e=>parseDate(e.date)>=t&&!state[e.date]?.done&&!state[e.date]?.off&&!isRest(e.unit));
   if(!next){wrap.innerHTML='';return;}
   wrap.innerHTML='<div class="next-card"><div class="next-card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div class="next-card-body"><div class="next-card-label">Nächste Schlüsseleinheit</div><div class="next-card-title">'+next.day+', '+next.date+' · '+next.unit+'</div><div class="next-card-meta">'+next.content+(next.sollKm?' · '+next.sollKm+' km':'')+'</div></div></div>';
 }
@@ -648,9 +763,9 @@ function getPhaseSpans(){
 function renderPhaseBand(bandId,legId){
   const band=document.getElementById(bandId);if(!band)return;
   const cw=getCurrentWeek(),spans=getPhaseSpans();
-  band.innerHTML=spans.map(s=>{const c=PHASE_COLORS[s.phase]||'#3b82f6',a=cw>=s.start&&cw<s.start+s.count;return'<div class="ov-phase-seg'+(a?' active-phase':'')+'" style="flex:'+s.count+';color:'+c+';border-top-color:'+c+'">P'+s.phase+' '+(PHASE_NAMES[s.phase]||'')+'</div>';}).join('');
+  band.innerHTML=spans.map(s=>{const c=PHASE_COLORS[s.phase]||'var(--blue)',a=cw>=s.start&&cw<s.start+s.count;return'<div class="ov-phase-seg'+(a?' active-phase':'')+'" style="flex:'+s.count+';color:'+c+';border-top-color:'+c+'">P'+s.phase+' '+(PHASE_NAMES[s.phase]||'')+'</div>';}).join('');
   const leg=document.getElementById(legId);if(!leg)return;
-  leg.innerHTML=spans.map(s=>{const c=PHASE_COLORS[s.phase]||'#3b82f6';return'<div class="phase-legend-item"><div class="phase-legend-dot" style="background:'+c+'"></div><span style="color:'+c+'">Phase '+s.phase+'</span><span style="color:var(--muted);font-weight:400"> · '+(PHASE_NAMES[s.phase]||'')+'</span></div>';}).join('');
+  leg.innerHTML=spans.map(s=>{const c=PHASE_COLORS[s.phase]||'var(--blue)';return'<div class="phase-legend-item"><div class="phase-legend-dot" style="background:'+c+'"></div><span style="color:'+c+'">Phase '+s.phase+'</span><span style="color:var(--muted);font-weight:400"> · '+(PHASE_NAMES[s.phase]||'')+'</span></div>';}).join('');
 }
 function getKeyUnits(w){
   const types=[];
@@ -688,7 +803,7 @@ function renderOverviewChart(chartId,infoId){
     const ip=istFill;// IST as % of SOLL bar height
     const overPct=st.ist>st.soll&&st.soll>0?Math.round((st.ist-st.soll)/st.soll*100):0;
     let ic='';if(st.ist>0){if(st.ist>st.soll)ic='ist-over';else if(st.ist/st.soll>=0.8)ic='ist-good';else ic='ist-low';}
-    const ph=getPhaseNum(weekEntries(w)[0]?.phase||'1'),pc=PHASE_COLORS[ph]||'#3b82f6';
+    const ph=getPhaseNum(weekEntries(w)[0]?.phase||'1'),pc=PHASE_COLORS[ph]||'var(--blue)';
     const kus=getKeyUnits(w).slice(0,3);
     const dots=kus.map(k=>'<span class="ov-dot ov-d-'+k+'"></span>').join('');
     const lbl=isCur?'●':'W'+w;
@@ -706,12 +821,12 @@ function renderOverviewChart(chartId,infoId){
   updateOvInfo(infoId,activeWeek);
 }
 function renderTrainingWeek(){
-  const es=weekEntries(activeWeek),pn=getPhaseNum(es[0]?.phase||'1'),pc=PHASE_COLORS[pn]||'#3b82f6';
+  const es=weekEntries(activeWeek),pn=getPhaseNum(es[0]?.phase||'1'),pc=PHASE_COLORS[pn]||'var(--blue)';
   const pname=PHASE_NAMES[pn]||'';const cw=getCurrentWeek();
   const ni=document.getElementById('week-nav-info');
   if(ni){
     ni.style.transition='background 0.3s';
-    ni.style.background='rgba(79,142,247,0.18)';
+    ni.style.background='rgba(107,150,232,0.18)';
     setTimeout(()=>ni.style.background='',400);
     const tag=activeWeek===cw?'<span style="background:var(--blue-dim);color:var(--blue);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:2px 7px;border-radius:10px;margin-left:6px">Aktuell</span>':'';
     ni.innerHTML='<span class="week-nav-num sg">Woche '+activeWeek+tag+'</span><span class="week-nav-phase" style="color:'+pc+'">Phase '+pn+' · '+pname+'</span>';
@@ -722,50 +837,85 @@ function renderTrainingWeek(){
   if(con)con.innerHTML=renderWeekCardHTML(activeWeek);
 }
 function renderWeekCardHTML(w){
-  const es=weekEntries(w),st=calcWeekStats(w),phC=getPhaseColor(es[0]?.phase||''),pn=getPhaseNum(es[0]?.phase||'1'),t=today();
+  const es=getWeekPlan(w),st=calcWeekStats(w),phC=getPhaseColor(es[0]?.phase||''),pn=getPhaseNum(es[0]?.phase||'1'),t=today();
   const rout=state['routine_w'+w]||{};
   const routHTML=ROUTINE_ITEMS.map(r=>'<div class="routine-check '+(rout[r.id]?'checked':'')+'" onclick="toggleRoutine('+w+',\''+r.id+'\')"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'+r.label+'</div>').join('');
   const rows=es.map(e=>{
     const s=state[e.date]||{},extras=state['extras_d'+e.date]||[];
     const badge=getBadge(e.unit),isToday=parseDate(e.date).getTime()===t.getTime(),isRestDay=isRest(e.unit);
-    const isDone=s.done===true,isPartial=s.done==='partial';
-    const rowClass=(isDone?'done-row':isPartial?'partial-row':'')+' '+(isRestDay&&!extras.length?' is-rest ':'')+badge.accent;
-    const ec=extras.length?'<div class="extra-chips">'+extras.map(x=>'<span class="extra-chip">'+(EXTRA_ICONS[x.type]||'')+' '+(x.km||'')+'</span>').join('')+'</div>':'';
+    const isDone=s.done===true,isPartial=s.done==='partial',isOff=!!s.off;
+    const rowClass=(isDone&&!isOff?'done-row':isPartial&&!isOff?'partial-row':'')+' '+(isRestDay&&!extras.length&&!moveMode?' is-rest ':'')+(isOff?' off-day ':'')+(moveMode?' movable ':'')+(moveSel===e.date?' move-sel ':'')+badge.accent;
+    const ec=extras.length?'<div class="extra-chips">'+extras.map(x=>'<span class="extra-chip">'+(EXTRA_ICONS[x.type]||'')+' '+esc(x.km)+'</span>').join('')+'</div>':'';
     const ics=[];
-    if(s.pace)ics.push('<span class="ic ic-pace">'+s.pace+'</span>');
+    if(isOff)ics.push('<span class="ic ic-off">'+(s.off==='krank'?'🤒 Krank':'🩹 Verletzt')+'</span>');
+    if(s.pace)ics.push('<span class="ic ic-pace">'+esc(s.pace)+'</span>');
     if(s.rpe)ics.push('<span class="ic '+getRpeClass(s.rpe)+'">RPE '+s.rpe+'</span>');
-    if(s.notes)ics.push('<span class="ic ic-notes" title="'+s.notes.replace(/"/g,'&quot;')+'">&#9998;</span>');
+    if(s.notes)ics.push('<span class="ic ic-notes" title="'+esc(s.notes)+'">&#9998;</span>');
     const chips=ics.length?'<div class="inline-chips">'+ics.join('')+'</div>':'';
     const in_=parseFloat(s.istKm)||0,sn=e.sollKm||0;
     const ic2='day-km-ist mono'+(sn&&in_>sn?' over':'')+(isPartial?' partial-km':'');
-    const kmH=s.istKm?'<div class="'+ic2+'">'+s.istKm+' km</div>'+(e.sollKm?'<div class="day-km-plan mono">/ '+e.sollKm+'</div>':''):(e.sollKm?'<div class="day-km-plan solo mono">'+e.sollKm+' km</div>':'');
+    const kmH=s.istKm?'<div class="'+ic2+'">'+esc(s.istKm)+' km</div>'+(e.sollKm?'<div class="day-km-plan mono">/ '+e.sollKm+'</div>':''):(e.sollKm?'<div class="day-km-plan solo mono">'+e.sollKm+' km</div>':'');
     const cc=isDone?'checked':isPartial?'partial':'';
-    return'<div class="day-row '+rowClass+'" onclick="openWorkout(\''+e.date+'\')">'
+    return'<div class="day-row '+rowClass+'" onclick="onDayRow(event,\''+e.date+'\')" draggable="true" ondragstart="dragUnit(event,\''+e.date+'\')" ondragover="event.preventDefault()" ondrop="dropUnit(event,\''+e.date+'\')">'
       +'<div class="day-col-date '+(isToday?'today-date':'')+'"><div class="day-name">'+e.day+'</div><div class="day-num mono">'+e.date.slice(0,2)+'</div></div>'
       +'<div class="day-col-badge"><span class="unit-badge" style="background:'+badge.bg+';color:'+badge.color+'">'+badge.label+'</span></div>'
       +'<div class="day-col-info"><div class="day-unit-name sg">'+e.unit+'</div><div class="day-content">'+e.content+'</div>'+ec+'</div>'
-      +'<div class="day-col-right">'+kmH+chips+(!isRestDay?'<div class="done-check '+cc+'" onclick="quickToggle(event,\''+e.date+'\')"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>':'')+'</div>'
+      +'<div class="day-col-right">'+kmH+chips+(!isRestDay&&!isOff?'<div class="done-check '+cc+'" onclick="quickToggle(event,\''+e.date+'\')"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>':'')+'</div>'
       +'</div>';
   }).join('');
+  const hasOrder=Array.isArray(state['order_w'+w]);
+  const moveHint=moveMode?'<div class="move-hint"><span>⇄ '+(moveSel?'Zieltag antippen zum Tauschen':'Zwei Tage antippen, um Einheiten zu tauschen')+'</span>'+(hasOrder?'<button onclick="resetWeekOrder()">Original wiederherstellen</button>':'')+'</div>':'';
   return'<div class="week-card">'
     +'<div class="week-card-header"><div><div class="week-card-title sg">Woche '+w+'</div><div style="font-size:12px;color:var(--muted);margin-top:2px">'+(es[0]?.date||'')+' – '+(es[es.length-1]?.date||'')+'</div></div>'
-    +'<span class="week-phase-badge" style="background:'+phC+'22;color:'+phC+'">Phase '+pn+'</span></div>'
+    +'<div style="display:flex;align-items:center;gap:8px"><button class="week-swap-btn'+(moveMode?' on':'')+'" onclick="toggleMoveMode()" title="Einheiten zwischen Tagen tauschen">⇄'+(hasOrder&&!moveMode?' •':'')+'</button>'
+    +'<span class="week-phase-badge" style="background:'+(PHASE_DIMS[pn]||'var(--blue-dim)')+';color:'+phC+'">Phase '+pn+'</span></div></div>'
     +'<div class="wk-stats"><div class="wk-stat"><div class="wk-stat-val mono" style="color:var(--green)">'+st.ist+'</div><div class="wk-stat-lbl">IST km</div></div>'
     +'<div class="wk-stat"><div class="wk-stat-val mono" style="color:var(--muted)">'+st.soll+'</div><div class="wk-stat-lbl">SOLL km</div></div>'
-    +'<div class="wk-stat"><div class="wk-stat-val mono" style="color:var(--blue)">'+st.done+'/'+st.total+'</div><div class="wk-stat-lbl">Einheiten</div></div></div>'
+    +'<div class="wk-stat"><div class="wk-stat-val mono" style="color:var(--blue)">'+st.done+'/'+st.total+'</div><div class="wk-stat-lbl">Einheiten</div></div>'
+    +(st.offDays?'<div class="wk-stat"><div class="wk-stat-val mono" style="color:var(--red)">'+st.offDays+'</div><div class="wk-stat-lbl">Ausfall</div></div>':'')+'</div>'
+    +moveHint
     +'<div class="routine-row"><span class="routine-label">Routine</span>'+routHTML+'</div>'
     +rows+'</div>';
 }
+// --- Einheiten tauschen (innerhalb einer Woche) ---
+let moveMode=false,moveSel=null,dragDate=null;
+function onDayRow(ev,date){
+  if(!moveMode){openWorkout(date);return;}
+  if(moveSel===date){moveSel=null;renderTrainingWeek();return;}
+  if(!moveSel){moveSel=date;renderTrainingWeek();return;}
+  const keep=moveSel;moveSel=null;swapUnits(keep,date);
+}
+function toggleMoveMode(){moveMode=!moveMode;moveSel=null;renderTrainingWeek();}
+function dragUnit(ev,date){dragDate=date;ev.dataTransfer.effectAllowed='move';}
+function dropUnit(ev,date){ev.preventDefault();if(dragDate&&dragDate!==date)swapUnits(dragDate,date);dragDate=null;}
+function swapUnits(d1,d2){
+  const e1=PLAN.find(x=>x.date===d1),e2=PLAN.find(x=>x.date===d2);
+  if(!e1||!e2)return;
+  if(e1.week!==e2.week){showToast('Tausch nur innerhalb derselben Woche möglich');renderTrainingWeek();return;}
+  const w=e1.week,es=weekEntries(w),key='order_w'+w;
+  const o=(Array.isArray(state[key])&&state[key].length===es.length)?state[key].slice():es.map((_,i)=>i);
+  const i1=es.findIndex(x=>x.date===d1),i2=es.findIndex(x=>x.date===d2);
+  if(i1<0||i2<0)return;
+  const tmp=o[i1];o[i1]=o[i2];o[i2]=tmp;
+  state[key]=o.every((v,i)=>v===i)?null:o;
+  touch(key);saveLocal();pushToGist();renderAll();showToast('Einheiten getauscht ⇄');
+}
+function resetWeekOrder(){
+  const key='order_w'+activeWeek;
+  if(state[key]){state[key]=null;touch(key);saveLocal();pushToGist();}
+  moveSel=null;renderAll();showToast('Original-Reihenfolge wiederhergestellt');
+}
 function quickToggle(ev,date){
   ev.stopPropagation();
-  const e=PLAN.find(x=>x.date===date),s=state[date]||{},cur=s.done;
+  if(moveMode)return;
+  const e=planByDate(date),s=state[date]||{},cur=s.done;
   if(!cur){s.done=true;if(!s.istKm&&e?.sollKm)s.istKm=e.sollKm;}
   else if(cur===true){s.done='partial';}
   else{s.done=false;if(s.istKm&&e?.sollKm&&parseFloat(s.istKm)===e.sollKm)s.istKm=null;}
-  state[date]=s;saveLocal();pushToGist();renderAll();
+  state[date]=s;touch(date);saveLocal();pushToGist();renderAll();
   showToast(s.done===true?'✓ Erledigt':s.done==='partial'?'◑ Abgewichen':'Markierung entfernt');
 }
-function toggleRoutine(w,id){const k='routine_w'+w,r=state[k]||{};r[id]=!r[id];state[k]=r;saveLocal();pushToGist();renderAll();}
+function toggleRoutine(w,id){const k='routine_w'+w,r=state[k]||{};r[id]=!r[id];state[k]=r;touch(k);saveLocal();pushToGist();renderAll();}
 function navigateWeek(d){activeWeek=Math.max(1,Math.min(16,activeWeek+d));renderTrainingWeek();renderOverviewChart('ov-chart-today','ov-info-today');}
 function selectChartWeek(w,go){
   activeWeek=w;// set BEFORE any render
@@ -800,8 +950,8 @@ function switchView(name){
   if(name==='today'){renderOverviewChart('ov-chart-today','ov-info-today');renderTrainingWeek();}
 }
 function openWorkout(date){
-  const e=PLAN.find(x=>x.date===date)||{date,day:'',unit:'Zusatz',content:'',intensity:'',sollKm:null,purpose:''};
-  modalEntry=e;const s=state[date]||{};selectedRpe=s.rpe||null;
+  const e=planByDate(date)||{date,day:'',unit:'Zusatz',content:'',intensity:'',sollKm:null,purpose:''};
+  modalEntry=e;const s=state[date]||{};selectedRpe=s.rpe||null;modalOff=s.off||null;renderOffChips();
   modalExtras=JSON.parse(JSON.stringify(state['extras_d'+date]||[]));
   document.getElementById('modal-title').textContent=e.unit;
   document.getElementById('modal-subtitle').textContent=e.day+', '+e.date;
@@ -823,7 +973,7 @@ function renderExtrasList(){
   const list=document.getElementById('extras-list');if(!modalExtras.length){list.innerHTML='';return;}
   list.innerHTML=modalExtras.map(x=>{
     const opts=EXTRA_TYPES.map(tt=>'<option value="'+tt+'"'+(tt===x.type?' selected':'')+'>'+( EXTRA_ICONS[tt]||'')+' '+tt+'</option>').join('');
-    return'<div class="extra-entry"><select class="extra-select" onchange="updateExtra('+x.id+',\'type\',this.value)">'+opts+'</select><input class="extra-input-sm" type="text" placeholder="km / Dauer" value="'+(x.km||'')+'" oninput="updateExtra('+x.id+',\'km\',this.value)"><input class="extra-input-sm" type="text" placeholder="Pace / Notiz" value="'+(x.notes||'')+'" oninput="updateExtra('+x.id+',\'notes\',this.value)"><button class="btn-del-extra" onclick="deleteExtra('+x.id+')">&#215;</button></div>';
+    return'<div class="extra-entry"><select class="extra-select" onchange="updateExtra('+x.id+',\'type\',this.value)">'+opts+'</select><input class="extra-input-sm" type="text" placeholder="km / Dauer" value="'+esc(x.km)+'" oninput="updateExtra('+x.id+',\'km\',this.value)"><input class="extra-input-sm" type="text" placeholder="Pace / Notiz" value="'+esc(x.notes)+'" oninput="updateExtra('+x.id+',\'notes\',this.value)"><button class="btn-del-extra" onclick="deleteExtra('+x.id+')">&#215;</button></div>';
   }).join('');
 }
 function renderRpeRow(){
@@ -832,25 +982,34 @@ function renderRpeRow(){
 }
 function closeWorkoutModal(){document.getElementById('workout-modal').classList.remove('open');document.body.style.overflow='';modalEntry=null;}
 function closeWorkoutOnOverlay(e){if(e.target===document.getElementById('workout-modal'))closeWorkoutModal();}
+let modalOff=null;
+function toggleOff(kind){modalOff=modalOff===kind?null:kind;renderOffChips();}
+function renderOffChips(){
+  const k=document.getElementById('off-krank'),v=document.getElementById('off-verletzt');
+  if(k)k.className='off-chip'+(modalOff==='krank'?' sel':'');
+  if(v)v.className='off-chip'+(modalOff==='verletzt'?' sel':'');
+}
 function saveEntry(){
   if(!modalEntry)return;
   const km=parseFloat(document.getElementById('inp-km').value)||null;
   const pace=document.getElementById('inp-pace').value.trim()||null;
   const notes=document.getElementById('inp-notes').value.trim()||null;
   const s=state[modalEntry.date]||{};
-  // Auto-fill sollKm if no km entered (analog quickToggle)
-  const autoKm=(!km&&modalEntry.sollKm)?modalEntry.sollKm:null;
+  // Auto-fill sollKm if no km entered (analog quickToggle) — nicht bei Ausfalltagen
+  const autoKm=(!km&&!modalOff&&modalEntry.sollKm)?modalEntry.sollKm:null;
   s.istKm=km||(autoKm?autoKm:s.istKm)||null;
-  s.pace=pace;s.rpe=selectedRpe;s.notes=notes;
-  if(km||autoKm||pace||notes||selectedRpe){if(!s.done)s.done=true;}
-  state[modalEntry.date]=s;
+  s.pace=pace;s.rpe=selectedRpe;s.notes=notes;s.off=modalOff;
+  if(!modalOff&&(km||autoKm||pace||notes||selectedRpe)){if(!s.done)s.done=true;}
+  if(modalOff)s.done=false;
+  state[modalEntry.date]=s;touch(modalEntry.date);
   const ce=modalExtras.filter(e=>e.type||e.km||e.notes);
-  state['extras_d'+modalEntry.date]=ce.length?ce:[];
+  state['extras_d'+modalEntry.date]=ce.length?ce:[];touch('extras_d'+modalEntry.date);
   saveLocal();pushToGist();closeWorkoutModal();renderAll();showToast('Gespeichert ✓');
 }
 function removeEntry(){
   if(!modalEntry)return;
   state[modalEntry.date]=null;state['extras_d'+modalEntry.date]=[];
+  touch(modalEntry.date);touch('extras_d'+modalEntry.date);
   saveLocal();pushToGist();closeWorkoutModal();renderAll();showToast('Eintrag gelöscht');
 }
 function openSetup(){
@@ -862,7 +1021,8 @@ function openSetup(){
 }
 function closeSetupModal(){document.getElementById('setup-modal').classList.remove('open');document.body.style.overflow='';}
 function resetAllData(){
-  if(!confirm('Alle Trainingsdaten wirklich löschen?\n\nDieser Vorgang kann nicht rückgängig gemacht werden.'))return;
+  if(!confirm('Alle Trainingsdaten wirklich löschen?\n\nDies überschreibt auch die Daten im GitHub Gist (alte Stände bleiben nur in der Gist-Versionshistorie erhalten).'))return;
+  if(!confirm('Wirklich sicher? Letzte Chance — danach sind die Daten auf diesem Gerät weg.'))return;
   state={};saveLocal();pushToGist();activeWeek=getCurrentWeek();closeSetupModal();renderAll();showToast('Daten zurückgesetzt ✓');
 }
 async function saveSetup(){
@@ -875,28 +1035,31 @@ async function saveSetup(){
 }
 function renderStatsView(){
   renderOverviewChart('ov-chart-stats','ov-info-stats');
-  renderWeekTable();renderKmVerlauf();renderStreakConsistency();
+  renderWeekTable();renderKmVerlauf();renderConsistency();renderKpis();
 }
 function renderWeekTable(){
   const tbody=document.getElementById('week-table-body');if(!tbody)return;
   let html='';
   for(let w=1;w<=16;w++){
-    const st=calcWeekStats(w),pn=getPhaseNum(weekEntries(w)[0]?.phase||'1'),phC=PHASE_COLORS[pn]||'#3b82f6';
+    const st=calcWeekStats(w),pn=getPhaseNum(weekEntries(w)[0]?.phase||'1'),phC=PHASE_COLORS[pn]||'var(--blue)';
     const fill=st.soll>0?st.ist/st.soll:0,pct=st.ist>0?Math.round(fill*100):null;
-    const over=st.ist>st.soll?st.ist-st.soll:0;
     let kc='var(--muted)',pc='var(--muted)';
     if(st.ist>0){if(fill>1)kc='var(--teal)';else if(fill>=0.9)kc='var(--green)';else if(fill>=0.7)kc='var(--blue)';else kc='var(--amber)';}
     if(pct!==null){if(pct>100)pc='var(--teal)';else if(pct>=90)pc='var(--green)';else if(pct>=70)pc='var(--blue)';else pc='var(--amber)';}
-    const barW=st.soll>0?Math.min(100,Math.round(fill*100)):0;
-    const barOvW=over>0&&st.soll>0?Math.round(over/st.soll*100):0;
     const barC=fill>1?'var(--teal)':fill>=0.8?'var(--blue)':'var(--amber)';
+    // Übererfüllung innerhalb des Tracks: Soll-Marke als Tick, Mehr-km als hellerer Abschnitt dahinter
+    let barHtml='';
+    if(st.ist>0&&st.soll>0){
+      if(fill<=1){barHtml='<div class="wt-bar-ist" style="width:'+Math.round(fill*100)+'%;background:'+barC+'"></div>';}
+      else{const sp=Math.max(8,Math.round(100/fill));barHtml='<div class="wt-bar-ist" style="width:100%;background:'+barC+';opacity:0.4"></div><div class="wt-bar-ist" style="width:'+sp+'%;background:'+barC+'"></div><div class="wt-soll-tick" style="left:'+sp+'%"></div>';}
+    }
     const rout=state['routine_w'+w]||{};
     const stabD=['stabiA','stabiB'].map(id=>'<div class="wt-dot '+(rout[id]?'on':'off')+'"></div>').join('');
     const mobD=['mob1','mob2'].map(id=>'<div class="wt-dot '+(rout[id]?'on':'off')+'"></div>').join('');
     const pctStr=pct!==null?(pct>100?'↑'+pct:pct+'%'):'—';
     html+='<div class="week-table-row" style="cursor:pointer" onclick="switchToWeek('+w+')">'
       +'<div class="wt-week"><div class="wt-phase-dot" style="background:'+phC+'"></div>W'+w+'</div>'
-      +'<div><div class="wt-bar-wrap">'+(st.ist>0?'<div class="wt-bar-ist" style="width:'+Math.min(100,barW)+'%;background:'+barC+'"></div>':'')+(barOvW>0?'<div class="wt-bar-over" style="left:100%;width:'+Math.min(barOvW,30)+'%"></div>':'')+'</div></div>'
+      +'<div><div class="wt-bar-wrap">'+barHtml+'</div></div>'
       +'<div class="wt-km" style="color:var(--muted)">'+st.soll+'</div>'
       +'<div class="wt-km" style="color:'+kc+'">'+(st.ist||'—')+'</div>'
       +'<div class="wt-pct" style="color:'+pc+'">'+pctStr+'</div>'
@@ -907,8 +1070,10 @@ function renderWeekTable(){
   tbody.innerHTML=html;
 }
 function switchToWeek(w){activeWeek=w;switchView('today');renderTrainingWeek();renderOverviewChart('ov-chart-today','ov-info-today');}
+function cssVar(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()||'#888';}
 function renderKmVerlauf(){
   const svg=document.getElementById('km-verlauf-svg');if(!svg)return;
+  const cB=cssVar('--blue'),cM=cssVar('--muted'),cGrid=cssVar('--grid'),cLine=cssVar('--grid-line'),cTxt=cssVar('--grid-txt');
   const W=600,H=140,pt=12,pb=24,pl=36,pr=12,iW=W-pl-pr,iH=H-pt-pb;
   // Build cumulative data
   const cw=getCurrentWeek();
@@ -926,8 +1091,8 @@ function renderKmVerlauf(){
   let gl='';
   for(let i=0;i<=4;i++){
     const y=pt+iH*(1-i/4),v=Math.round(maxV*i/4);
-    gl+='<line x1="'+pl+'" y1="'+y+'" x2="'+(W-pr)+'" y2="'+y+'" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>';
-    gl+='<text x="'+(pl-4)+'" y="'+(y+4)+'" text-anchor="end" fill="#7d8aaa" font-size="11" font-weight="600" font-family="Barlow Condensed,sans-serif">'+v+'</text>';
+    gl+='<line x1="'+pl+'" y1="'+y+'" x2="'+(W-pr)+'" y2="'+y+'" stroke="'+cGrid+'" stroke-width="1"/>';
+    gl+='<text x="'+(pl-4)+'" y="'+(y+4)+'" text-anchor="end" fill="'+cM+'" font-size="11" font-weight="600" font-family="Barlow Condensed,sans-serif">'+v+'</text>';
   }
   // Soll path (full 16 weeks)
   const sp=pts.map((d,i)=>(i===0?'M':'L')+' '+xS(i)+' '+yS(d.soll)).join(' ');
@@ -943,23 +1108,47 @@ function renderKmVerlauf(){
   }
   let wl='';
   for(let i=0;i<pts.length;i+=2){
-    wl+='<text x="'+xS(i)+'" y="'+(H-2)+'" text-anchor="middle" fill="#7d8aaa" font-size="11" font-weight="600" font-family="Barlow Condensed,sans-serif">W'+pts[i].w+'</text>';
+    wl+='<text x="'+xS(i)+'" y="'+(H-2)+'" text-anchor="middle" fill="'+cM+'" font-size="11" font-weight="600" font-family="Barlow Condensed,sans-serif">W'+pts[i].w+'</text>';
   }
-  svg.innerHTML='<defs><linearGradient id="ig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4f8ef7" stop-opacity="0.25"/><stop offset="100%" stop-color="#4f8ef7" stop-opacity="0.02"/></linearGradient></defs>'+gl+(ia?'<path d="'+ia+'" fill="url(#ig)"/>' :'' )+'<path d="'+sp+'" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-dasharray="4,3"/>'+(ip?'<path d="'+ip+'" fill="none" stroke="#4f8ef7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' :'' )+wl+'<text x="'+(W-pr-2)+'" y="'+(pt+14)+'" text-anchor="end" fill="rgba(255,255,255,0.2)" font-size="9" font-family="Barlow Condensed,sans-serif">SOLL</text>';
+  svg.innerHTML='<defs><linearGradient id="ig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+cB+'" stop-opacity="0.25"/><stop offset="100%" stop-color="'+cB+'" stop-opacity="0.02"/></linearGradient></defs>'+gl+(ia?'<path d="'+ia+'" fill="url(#ig)"/>' :'' )+'<path d="'+sp+'" fill="none" stroke="'+cLine+'" stroke-width="1.5" stroke-dasharray="4,3"/>'+(ip?'<path d="'+ip+'" fill="none" stroke="'+cB+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' :'' )+wl+'<text x="'+(W-pr-2)+'" y="'+(pt+14)+'" text-anchor="end" fill="'+cTxt+'" font-size="9" font-family="Barlow Condensed,sans-serif">SOLL</text>';
 }
-function renderStreakConsistency(){
-  const cw=getCurrentWeek();
-  const ws=Array.from({length:16},(_,i)=>{const w=i+1,st=calcWeekStats(w);if(w>cw)return'future';if(st.total===0)return'empty';if(st.done===st.total)return'full';if(st.done>0)return'partial';return'empty';});
-  let cur=0;for(let i=cw-1;i>=0;i--){if(ws[i]==='full')cur++;else break;}
-  let best=0,run=0;for(const s of ws){if(s==='full'){run++;best=Math.max(best,run);}else run=0;}
-  document.getElementById('streak-current').textContent=cur;
-  document.getElementById('streak-best').textContent=best;
-  document.getElementById('streak-current-sub').textContent=cur===1?'Woche komplett':'Wochen komplett';
+function renderConsistency(){
   const de=document.getElementById('cons-dots');if(!de)return;
-  de.innerHTML=ws.map((s,i)=>'<div class="cons-dot '+(s==='full'?'full':s==='partial'?'partial-w':s==='future'?'future':'empty')+'" title="W'+(i+1)+'"></div>').join('');
+  const cls={full:'full',partial:'partial-w',none:'none',off:'off-w',running:'running',future:'future'};
+  de.innerHTML=Array.from({length:16},(_,i)=>{
+    const w=i+1,s=weekStatus(w);
+    return'<div class="cons-dot '+(cls[s]||'future')+'" title="W'+w+'" onclick="switchToWeek('+w+')" style="cursor:pointer"></div>';
+  }).join('');
+}
+function parsePace(p){const m=/^(\d{1,2})[:.](\d{2})$/.exec(String(p||'').trim());return m?(+m[1]*60+ +m[2]):null;}
+function fmtPace(sec){if(!sec||!isFinite(sec))return'—';const m=Math.floor(sec/60),s=Math.round(sec%60);return m+':'+String(s).padStart(2,'0');}
+function renderKpis(){
+  const el=document.getElementById('kpi-grid');if(!el)return;
+  let wSum=0,wKm=0,maxRun=0,rpeSum=0,rpeN=0,days=0,extraKm=0,krank=0,verletzt=0;
+  for(const e of fullPlan()){
+    const s=state[e.date]||{};
+    const km=parseFloat(s.istKm)||0;
+    if(km>maxRun)maxRun=km;
+    const ps=parsePace(s.pace);
+    if(ps&&km>0){wSum+=ps*km;wKm+=km;}
+    if(s.rpe){rpeSum+=s.rpe;rpeN++;}
+    if(s.done)days++;
+    if(s.off==='krank')krank++;else if(s.off==='verletzt')verletzt++;
+    for(const ex of(state['extras_d'+e.date]||[]))extraKm+=parseFloat(ex.km)||0;
+  }
+  const kpis=[
+    {v:wKm?fmtPace(wSum/wKm):'—',l:'Ø Pace',s:'km-gewichtet',c:'var(--blue)'},
+    {v:maxRun?maxRun+' km':'—',l:'Längster Lauf',s:'bisher',c:'var(--teal)'},
+    {v:rpeN?String(Math.round(rpeSum/rpeN*10)/10):'—',l:'Ø RPE',s:rpeN+' Einheiten',c:'var(--amber)'},
+    {v:days,l:'Trainingstage',s:'erledigt',c:'var(--green)'},
+    {v:Math.round(extraKm*10)/10,l:'Zusatz-km',s:'Rad & Co.',c:'var(--purple)'},
+    {v:krank+verletzt,l:'Ausfalltage',s:krank+'× krank · '+verletzt+'× verletzt',c:'var(--red)'}
+  ];
+  el.innerHTML=kpis.map(k=>'<div class="kpi-card"><div class="kpi-val mono" style="color:'+k.c+'">'+k.v+'</div><div class="kpi-lbl">'+k.l+'</div><div class="kpi-sub">'+k.s+'</div></div>').join('');
 }
 if('serviceWorker' in navigator){
-  const sw="const C='hm-v4';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['./']))));self.addEventListener('fetch',e=>{if(e.request.url.includes('api.github.com'))return;e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});";
+  // Network-first für die Seite selbst: neue Deployments erscheinen sofort, Cache nur als Offline-Fallback
+  const sw="const C='hm-v5';self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(c=>c.addAll(['./'])))});self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));self.addEventListener('fetch',e=>{const u=e.request.url;if(u.includes('api.github.com'))return;if(e.request.mode==='navigate'||u.endsWith('/')||u.endsWith('index.html')){e.respondWith(fetch(e.request).then(r=>{const cp=r.clone();caches.open(C).then(c=>c.put(e.request,cp));return r;}).catch(()=>caches.match(e.request)));return;}e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});";
   const b=new Blob([sw],{type:'application/javascript'});
   navigator.serviceWorker.register(URL.createObjectURL(b)).catch(()=>{});
 }
@@ -969,7 +1158,8 @@ function injectIcons(){
   const hi=document.getElementById('header-brand-icon');if(hi)hi.innerHTML=img;
   const si=document.getElementById('sb-brand-icon');if(si)si.innerHTML=img;
   const ati=document.createElement('link');ati.rel='apple-touch-icon';ati.href=url;document.head.appendChild(ati);
-  const mf={name:'HM Köln 2026 · Peter',short_name:'HM Köln',start_url:'./',display:'standalone',background_color:'#020617',theme_color:'#020617',icons:[{src:url,sizes:'512x512',type:'image/jpeg',purpose:'any maskable'}]};
+  const tcol=document.documentElement.getAttribute('data-theme')==='light'?'#f4f1ea':'#0d1015';
+  const mf={name:'HM Köln 2026 · Peter',short_name:'HM Köln',start_url:'./',display:'standalone',background_color:tcol,theme_color:tcol,icons:[{src:url,sizes:'512x512',type:'image/jpeg',purpose:'any maskable'}]};
   const mb=new Blob([JSON.stringify(mf)],{type:'application/manifest+json'});
   const ml=document.createElement('link');ml.rel='manifest';ml.href=URL.createObjectURL(mb);document.head.appendChild(ml);
 }
@@ -984,7 +1174,21 @@ if(window.navigator.standalone){
   setBodyPad();
   window.addEventListener('resize',setBodyPad);
 }
+function applyTheme(t){
+  const light=t==='light';
+  document.documentElement.setAttribute('data-theme',light?'light':'dark');
+  const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=light?'#f4f1ea':'#0d1015';
+  // km-Verlauf-SVG bäckt Farben beim Rendern ein → bei aktiver Stats-Ansicht neu zeichnen
+  if(document.getElementById('view-stats')?.classList.contains('active'))renderKmVerlauf();
+}
+function toggleTheme(){
+  const next=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';
+  try{localStorage.setItem('hm_theme',next);}catch(e){}
+  applyTheme(next);
+  showToast(next==='light'?'☀️ Heller Modus':'🌙 Dunkler Modus');
+}
 loadLocal();
+applyTheme(localStorage.getItem('hm_theme')==='light'?'light':'dark');
 activeWeek=getCurrentWeek();
 injectIcons();
 if(syncPat&&syncGistId){setSyncStatus('ok',fmtSyncTime()||'Sync aktiv');syncFromGist();}
