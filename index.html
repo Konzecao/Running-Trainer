@@ -290,25 +290,9 @@ html[data-theme="light"] .btn-primary{color:#fff}
 html[data-theme="light"] code{color:var(--teal)}
 html[data-theme="light"] #toast{background:#242b3d;color:#fbfaf6;border-color:transparent}
 /* ===== GARMIN-IMPORT PICKER ===== */
-.g-link-row{display:flex;gap:8px}
-.g-link-row .form-input{flex:1;min-width:0}
-.g-link-btn{flex-shrink:0;padding:11px 16px;font-size:14px}
-.g-link-btn:disabled{opacity:0.55;cursor:default}
-.garmin-act{display:flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;margin-bottom:6px;cursor:pointer;transition:border-color 0.15s,background 0.15s;-webkit-tap-highlight-color:transparent}
-.garmin-act:hover{border-color:var(--blue)}
-.garmin-act.g-match{border-color:var(--blue);background:var(--blue-dim)}
-.garmin-act.g-used{opacity:0.55}
-.garmin-act.g-sel{outline:2px solid var(--blue);outline-offset:-2px}
-.g-act-main{flex:1;min-width:0}
-.g-act-title{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.g-act-sub{font-size:11px;color:var(--muted);margin-top:1px}
-.g-act-kms{text-align:right;flex-shrink:0}
-.g-act-km{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:var(--blue);line-height:1.1}
-.g-act-pace{font-size:11px;color:var(--muted)}
-.g-act-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0}
-.g-act-badge.today{background:var(--blue-dim);color:var(--blue)}
-.g-act-badge.used{background:var(--green-dim);color:var(--green)}
-html[data-theme="dark"] .g-act-km{font-family:'Inter',system-ui,sans-serif;font-weight:700}
+.ocr-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#ocr-preview-wrap{max-width:120px;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
+#ocr-preview{display:block;width:100%;height:auto}
 /* ===== THEME TOGGLE BUTTON ===== */
 #theme-toggle,#theme-toggle-sb{width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);background:var(--bg2);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s,color 0.2s,border-color 0.2s;-webkit-tap-highlight-color:transparent;padding:0}
 #theme-toggle:hover,#theme-toggle-sb:hover{background:var(--bg3);color:var(--text)}
@@ -492,14 +476,13 @@ html[data-theme="light"] #theme-toggle .icon-moon,html[data-theme="light"] #them
     </div>
     <div class="modal-body">
       <div class="plan-info-box" id="modal-plan-info"></div>
-      <div class="form-group" id="garmin-import-wrap">
-        <label class="form-label">⌚ Garmin-Import</label>
-        <div class="g-link-row">
-          <input class="form-input" id="inp-garmin-link" type="text" placeholder="Garmin-Link einfügen…" autocomplete="off">
-          <button class="btn btn-primary g-link-btn" id="btn-garmin-import" onclick="importFromGarminLink()">Import</button>
+      <div class="form-group" id="ocr-import-wrap">
+        <label class="form-label">📷 Aktivität aus Screenshot</label>
+        <div class="ocr-row">
+          <button class="btn btn-secondary" id="btn-ocr-paste" onclick="pasteGarminScreenshot()">Screenshot einfügen</button>
+          <div id="ocr-preview-wrap" style="display:none"><img id="ocr-preview" alt=""></div>
         </div>
-        <div id="garmin-import-status" style="font-size:11px;color:var(--faint);margin-top:6px">Garmin-App → Aktivität → Teilen → Link kopieren. Auch der komplette geteilte Text funktioniert.</div>
-        <div id="garmin-import-list" style="margin-top:8px"></div>
+        <div id="ocr-status" style="font-size:11px;color:var(--faint);margin-top:6px">Screenshot kopieren, dann hier einfügen (Mac: Cmd+V). Mehrere Screenshots nacheinander möglich — ergänzen sich.</div>
       </div>
       <div class="form-group"><label class="form-label">Ausfall</label>
         <div class="off-chip-row">
@@ -687,52 +670,12 @@ function isMandatory(e){
   return true;
 }
 let pendingPush=false,syncLoading=false;
-// --- Garmin-Import: Inbox-Datei im selben Gist (wird NUR vom iOS-Kurzbefehl geschrieben) ---
-let garminInbox=[],garminToastShown=false;
-function usedGids(){
-  const s=new Set();
-  for(const k in state){const v=state[k];if(v&&typeof v==='object'&&v.gid)s.add(v.gid);}
-  return s;
-}
-// Normalisiert Kurzbefehl-Rohdaten: distanceRaw "8,24 km" → km-Zahl, Dauer aus Start/Ende
-function normGarminAct(a){
-  let km=a.distanceKm;
-  if(km==null&&a.distanceRaw!=null){
-    let s=String(a.distanceRaw).trim();
-    const isMi=/\bmi\b/i.test(s);
-    s=s.replace(/[^0-9.,]/g,'');
-    if(s.includes(',')&&s.includes('.'))s=s.replace(/\./g,'').replace(',','.');
-    else s=s.replace(',','.');
-    km=parseFloat(s)||0;
-    if(isMi)km*=1.60934;
-  }
-  let dur=a.durationSec;
-  if(dur==null&&a.endISO&&a.startISO){
-    const t=(new Date(a.endISO)-new Date(a.startISO))/1000;
-    if(isFinite(t)&&t>0)dur=t;
-  }
-  return Object.assign({},a,{distanceKm:km,durationSec:dur});
-}
-function readGarminInbox(files){
-  try{
-    const gf=files&&files['garmin-inbox.json'];
-    if(!gf?.content){return;}
-    const gi=JSON.parse(gf.content);
-    garminInbox=(Array.isArray(gi.activities)?gi.activities:[]).filter(a=>a&&a.startISO).map(normGarminAct).slice(0,5);
-    if(garminInbox.length&&!garminToastShown){
-      const u=usedGids();
-      const fresh=garminInbox.filter(a=>!u.has(a.startISO)).length;
-      if(fresh>0){garminToastShown=true;showToast('⌚ '+fresh+(fresh===1?' neuer Garmin-Lauf':' neue Garmin-Läufe')+' verfügbar');}
-    }
-  }catch(e){garminInbox=[];}
-}
 async function syncFromGist(){
   if(!syncPat||!syncGistId||syncLoading)return;syncLoading=true;setSyncStatus('busy','Laden...');
   try{
     const r=await fetch('https://api.github.com/gists/'+syncGistId,{headers:{Authorization:'token '+syncPat,Accept:'application/vnd.github.v3+json'}});
     if(!r.ok)throw new Error('HTTP '+r.status);
     const data=await r.json();const file=data.files[syncFilename];
-    readGarminInbox(data.files);
     if(file?.content){
       // Merge pro Eintrag nach Zeitstempel: neuere lokale Änderungen überleben ein Laden vom Gist
       const remote=JSON.parse(file.content);
@@ -750,8 +693,15 @@ async function syncFromGist(){
       if(localNewer)pushToGist();
     }
     lastSynced=new Date();localStorage.setItem('hm_last_synced',lastSynced.toISOString());
-    setSyncStatus('ok',fmtSyncTime());renderAll();
+    setSyncStatus('ok',fmtSyncTime());
+    // Kein Re-Render, während der Nutzer mitten in einer Eingabe/Aktion ist — sonst Flackern/Datenverlust im offenen Formular
+    if(!document.querySelector('.modal-overlay.open')&&!moveMode)renderAll();
   }catch(e){setSyncStatus('err','Fehler');showToast('Sync-Fehler: '+e.message);}finally{syncLoading=false;}
+}
+function maybeSync(){
+  if(!syncPat||!syncGistId||syncLoading||syncBusy)return;
+  if(document.visibilityState!=='visible')return;
+  syncFromGist();
 }
 async function pushToGist(){
   if(!syncPat||!syncGistId||syncBusy)return;
@@ -768,8 +718,10 @@ window.addEventListener('online',()=>{if(pendingPush)pushToGist();});
 document.addEventListener('visibilitychange',()=>{
   if(document.visibilityState!=='visible')return;
   if(pendingPush)pushToGist();
-  else if(syncPat&&syncGistId)syncFromGist();
+  else maybeSync();
 });
+window.addEventListener('focus',()=>{if(pendingPush)pushToGist();else maybeSync();});
+setInterval(maybeSync,60000);
 function fmtSyncTime(){if(!lastSynced)return'—';return lastSynced.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});}
 function setSyncStatus(s,l){
   document.getElementById('sync-dot').className='sync-dot '+s;
@@ -1028,110 +980,110 @@ function openWorkout(date){
   document.getElementById('inp-km').value=s.istKm||'';
   document.getElementById('inp-pace').value=s.pace||'';
   document.getElementById('inp-notes').value=s.notes||'';
-  modalGid=s.gid||null;
-  const gl=document.getElementById('inp-garmin-link');if(gl)gl.value='';
-  const gs=document.getElementById('garmin-import-status');
-  if(gs)gs.textContent=s.gid&&String(s.gid).startsWith('ga')?'✓ Für diesen Tag wurde bereits eine Garmin-Aktivität übernommen.':'Garmin-App → Aktivität → Teilen → Link kopieren. Auch der komplette geteilte Text funktioniert.';
-  renderRpeRow();renderExtrasList();renderGarminImport();
+  resetOcrImport();
+  renderRpeRow();renderExtrasList();
   document.getElementById('btn-remove').style.display=(s.istKm||s.pace||s.rpe||s.notes||modalExtras.length)?'':'none';
   const mo=document.getElementById('workout-modal');
   mo.classList.add('open');
   document.body.style.overflow='hidden';
   setTimeout(()=>document.getElementById('inp-km').focus(),300);
 }
-// --- Garmin-Import: Picker im Workout-Modal ---
-let modalGid=null;
-function isoToAppDate(iso){
-  const d=new Date(iso);if(isNaN(d))return'';
-  return String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear();
+// --- Screenshot-Import per OCR (Tesseract.js, lazy geladen) ---
+let ocrWorker=null,ocrLoading=false;
+function resetOcrImport(){
+  const st=document.getElementById('ocr-status'),pv=document.getElementById('ocr-preview-wrap');
+  if(st)st.textContent='Screenshot kopieren, dann hier einfügen (Mac: Cmd+V). Mehrere Screenshots nacheinander möglich — ergänzen sich.';
+  if(pv)pv.style.display='none';
 }
-function renderGarminImport(){
-  const list=document.getElementById('garmin-import-list');
-  if(!list)return;
-  if(!garminInbox.length||!modalEntry){list.innerHTML='';return;}
-  const used=usedGids();
-  // Aktivität mit passendem Datum zuerst
-  const acts=garminInbox.map((a,i)=>({a,i,match:isoToAppDate(a.startISO)===modalEntry.date}))
-    .sort((x,y)=>(y.match?1:0)-(x.match?1:0)).slice(0,3);
-  list.innerHTML=acts.map(({a,i,match})=>{
-    const d=new Date(a.startISO);
-    const dateStr=isNaN(d)?'—':d.toLocaleDateString('de-DE',{weekday:'short',day:'2-digit',month:'2-digit'})+' · '+d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})+' Uhr';
-    const km=Math.round((parseFloat(a.distanceKm)||0)*10)/10;
-    const dur=parseFloat(a.durationSec)||0;
-    const pace=km&&dur?fmtPace(dur/km):'—';
-    const isUsed=used.has(a.startISO),isSel=modalGid===a.startISO;
-    const badge=isUsed?'<span class="g-act-badge used">✓ übernommen</span>':match?'<span class="g-act-badge today">dieser Tag</span>':'';
-    return'<div class="garmin-act'+(match?' g-match':'')+(isUsed?' g-used':'')+(isSel?' g-sel':'')+'" onclick="applyGarmin('+i+')">'
-      +'<div class="g-act-main"><div class="g-act-title">'+esc(a.name||'Lauf')+'</div><div class="g-act-sub">'+dateStr+'</div></div>'
-      +badge
-      +'<div class="g-act-kms"><div class="g-act-km">'+km+' km</div><div class="g-act-pace">'+pace+' /km</div></div>'
-      +'</div>';
-  }).join('');
-}
-// --- Garmin-Import per Share-Link (Garmin-App → Teilen → Link) ---
-function extractGarminId(text){const m=/activity\/(\d+)/.exec(String(text||''));return m?m[1]:null;}
-async function importFromGarminLink(){
-  const inp=document.getElementById('inp-garmin-link'),btn=document.getElementById('btn-garmin-import'),st=document.getElementById('garmin-import-status');
-  let txt=inp.value.trim();
-  // Feld leer? Zwischenablage versuchen (User-Geste → iOS fragt nach Erlaubnis)
-  if(!txt&&navigator.clipboard&&navigator.clipboard.readText){
-    try{const clip=await navigator.clipboard.readText();if(extractGarminId(clip)){txt=clip;inp.value=clip;}}catch(e){}
+async function getOcrWorker(){
+  if(ocrWorker)return ocrWorker;
+  if(!window.Tesseract){
+    await new Promise((res,rej)=>{
+      const s=document.createElement('script');
+      s.src='https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js';
+      s.onload=res;s.onerror=()=>rej(new Error('Texterkennung konnte nicht geladen werden (offline?)'));
+      document.head.appendChild(s);
+    });
   }
-  const id=extractGarminId(txt);
-  if(!id){st.textContent='✗ Kein Garmin-Link erkannt — bitte den geteilten Text oder Link einfügen.';showToast('Kein Garmin-Link erkannt');return;}
-  const wasUsed=usedGids().has('ga'+id)&&modalGid!=='ga'+id;
-  btn.disabled=true;const oldLbl=btn.textContent;btn.textContent='Lade…';
-  st.textContent='Lade Aktivität '+id+' … (kann ~10 Sekunden dauern)';
-  try{
-    const ctrl=new AbortController();const to=setTimeout(()=>ctrl.abort(),20000);
-    const r=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://connect.garmin.com/modern/activity/'+id),{signal:ctrl.signal});
-    clearTimeout(to);
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const doc=new DOMParser().parseFromString(await r.text(),'text/html');
-    const og=p=>{const m=doc.querySelector('meta[property="og:'+p+'"]');return m?(m.getAttribute('content')||''):'';};
-    const title=og('title'),desc=og('description');
-    const num=s=>{s=String(s);if(s.includes(',')&&s.includes('.'))s=s.replace(/\./g,'').replace(',','.');else s=s.replace(',','.');return parseFloat(s)||0;};
-    const dm=/Distance\s+([\d.,]+)\s*(km|mi)/i.exec(desc);
-    const pm=/Pace\s+(\d{1,2}:\d{2})\s*\/\s*(km|mi)/i.exec(desc);
-    const tm=/Time\s+((?:\d+:)?\d{1,2}:\d{2})/i.exec(desc);
-    if(!dm&&!tm)throw new Error('keine Trainingsdaten gefunden — ist die Aktivität per Link geteilt/öffentlich?');
-    let km=dm?num(dm[1]):0;
-    if(dm&&dm[2].toLowerCase()==='mi')km*=1.60934;
-    let paceStr='';
-    if(pm){let ps=parsePace(pm[1]);if(ps&&pm[2].toLowerCase()==='mi')ps/=1.60934;if(ps)paceStr=fmtPace(ps);}
-    else if(tm&&km){
-      const p=tm[1].split(':').map(Number);
-      const sec=p.length===3?p[0]*3600+p[1]*60+p[2]:p[0]*60+p[1];
-      paceStr=fmtPace(sec/km);
+  ocrWorker=await Tesseract.createWorker('eng');
+  return ocrWorker;
+}
+function pasteGarminScreenshot(){
+  const btn=document.getElementById('btn-ocr-paste');
+  if(navigator.clipboard&&navigator.clipboard.read){
+    navigator.clipboard.read().then(items=>{
+      for(const it of items){
+        const type=it.types.find(t=>t.startsWith('image/'));
+        if(type){it.getType(type).then(blob=>runOcrImport(blob));return;}
+      }
+      showToast('Kein Bild in der Zwischenablage gefunden');
+    }).catch(()=>showToast('Zwischenablage nicht zugänglich — bitte Cmd+V im Formular nutzen'));
+  }else{
+    showToast('Bitte Screenshot per Cmd+V einfügen');
+  }
+}
+document.addEventListener('paste',e=>{
+  if(!document.getElementById('workout-modal')?.classList.contains('open'))return;
+  const items=e.clipboardData?.items;if(!items)return;
+  for(const it of items){
+    if(it.type&&it.type.startsWith('image/')){
+      const blob=it.getAsFile();if(blob){e.preventDefault();runOcrImport(blob);}
+      return;
     }
-    if(km)document.getElementById('inp-km').value=Math.round(km*10)/10;
-    if(paceStr)document.getElementById('inp-pace').value=paceStr;
-    const nf=document.getElementById('inp-notes');
-    if(title&&title!=='Garmin Connect'&&!nf.value.trim())nf.value=title;
-    modalGid='ga'+id;
-    st.textContent=(wasUsed?'⚠️ Diese Aktivität wurde bereits in einer Einheit übernommen. ':'')+'✓ Übernommen — jetzt RPE wählen & speichern.';
-    showToast('⌚ Importiert'+(km?': '+Math.round(km*10)/10+' km':'')+(paceStr?' · '+paceStr+' /km':''));
-  }catch(e){
-    const msg=e.name==='AbortError'?'Zeitüberschreitung — bitte später erneut versuchen':(e.message||'Fehler');
-    st.textContent='✗ Import fehlgeschlagen: '+msg;
-    showToast('Garmin-Import fehlgeschlagen');
-  }finally{btn.disabled=false;btn.textContent=oldLbl;}
-}
-function applyGarmin(i){
-  const a=garminInbox[i];if(!a||!modalEntry)return;
-  const km=Math.round((parseFloat(a.distanceKm)||0)*10)/10;
-  const dur=parseFloat(a.durationSec)||0;
-  if(km)document.getElementById('inp-km').value=km;
-  if(km&&dur)document.getElementById('inp-pace').value=fmtPace(dur/km);
-  const nf=document.getElementById('inp-notes');
-  if(!nf.value.trim()){
-    const d=new Date(a.startISO);
-    const t=isNaN(d)?'':d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
-    nf.value=((a.name||'Lauf')+(t?' · '+t+' Uhr':'')).trim();
   }
-  modalGid=a.startISO;
-  renderGarminImport();
-  showToast('⌚ Übernommen — noch RPE wählen & speichern');
+});
+async function runOcrImport(blob){
+  const st=document.getElementById('ocr-status'),pv=document.getElementById('ocr-preview-wrap'),img=document.getElementById('ocr-preview'),btn=document.getElementById('btn-ocr-paste');
+  const url=URL.createObjectURL(blob);
+  img.src=url;pv.style.display='';
+  btn.disabled=true;st.textContent=window.Tesseract?'Screenshot wird gelesen…':'Texterkennung wird geladen … (einmalig ~2 MB)';
+  try{
+    const worker=await getOcrWorker();
+    st.textContent='Screenshot wird gelesen…';
+    const{data}=await worker.recognize(blob);
+    const found=applyOcrResult(data);
+    st.textContent=found.length?'✓ Erkannt: '+found.join(', ')+' — bitte prüfen.':'Keine Werte erkannt — bitte manuell eingeben.';
+    showToast(found.length?'📷 '+found.join(', ')+' erkannt':'Keine Werte erkannt');
+  }catch(e){
+    st.textContent='✗ Fehler: '+(e.message||'Texterkennung fehlgeschlagen');
+    showToast('Screenshot-Import fehlgeschlagen');
+  }finally{btn.disabled=false;URL.revokeObjectURL(url);}
+}
+function ocrNum(s){s=String(s);if(s.includes(',')&&s.includes('.'))s=s.replace(/\./g,'').replace(',','.');else s=s.replace(',','.');return parseFloat(s)||0;}
+// Zeilen, die wie Datum/Uhrzeit/Tab-Leiste aussehen, nie als Notiz verwenden
+function looksLikeNoise(t){
+  return /^\d{1,2}[:.]\d{2}$/.test(t)||/\d+[.,]\d+\s*km/i.test(t)||/\/\s*km/i.test(t)||/bpm/i.test(t)
+    ||/^\d{1,2}\.\s*\w+/.test(t)||/übersicht|statistiken|runden|diagramme|ausrüst/i.test(t)||/^\d+\s*\/\s*10$/.test(t);
+}
+function applyOcrResult(data){
+  const text=data.text||'',found=[];
+  const dm=/(\d+[.,]\d+)\s*(km|mi)\b/i.exec(text);
+  const pm=/(\d{1,2})[:.](\d{2})\s*\/\s*(km|mi)\b/i.exec(text);
+  const rm=/(\d{1,2})\s*\/\s*10\b/.exec(text);
+  if(dm){
+    let km=ocrNum(dm[1]);if(dm[2].toLowerCase()==='mi')km*=1.60934;
+    document.getElementById('inp-km').value=Math.round(km*10)/10;found.push('km');
+  }
+  if(pm){
+    let sec=parseInt(pm[1],10)*60+parseInt(pm[2],10);if(pm[3].toLowerCase()==='mi')sec/=1.60934;
+    document.getElementById('inp-pace').value=fmtPace(sec);found.push('Pace');
+  }
+  if(rm){
+    const v=parseInt(rm[1],10);
+    if(v>=1&&v<=10){selectedRpe=v;renderRpeRow();found.push('RPE');}
+  }
+  // Notiz layout-basiert: größte Zeile = Titel, direkt darunter kleinere Nicht-Zahlen-Zeile = Notiz
+  const nf=document.getElementById('inp-notes');
+  if(!nf.value.trim()&&Array.isArray(data.lines)&&data.lines.length){
+    const lines=data.lines.map(l=>({text:(l.text||'').trim(),h:l.bbox?(l.bbox.y1-l.bbox.y0):0,y:l.bbox?l.bbox.y0:0}))
+      .filter(l=>l.text&&!looksLikeNoise(l.text));
+    if(lines.length>=2){
+      let titleIdx=0;for(let i=1;i<lines.length;i++)if(lines[i].h>lines[titleIdx].h)titleIdx=i;
+      const cand=lines.find((l,i)=>i>titleIdx&&l.h<lines[titleIdx].h&&l.h>0);
+      if(cand){nf.value=cand.text;found.push('Notiz');}
+    }
+  }
+  return found;
 }
 function addExtra(){modalExtras.push({id:Date.now(),type:'Rad',km:'',notes:''});renderExtrasList();}
 function deleteExtra(id){modalExtras=modalExtras.filter(e=>e.id!==id);renderExtrasList();}
@@ -1166,7 +1118,6 @@ function saveEntry(){
   const autoKm=(!km&&!modalOff&&modalEntry.sollKm)?modalEntry.sollKm:null;
   s.istKm=km||(autoKm?autoKm:s.istKm)||null;
   s.pace=pace;s.rpe=selectedRpe;s.notes=notes;s.off=modalOff;
-  if(modalGid)s.gid=modalGid;// Garmin-Aktivität als übernommen markieren
   if(!modalOff&&(km||autoKm||pace||notes||selectedRpe)){if(!s.done)s.done=true;}
   if(modalOff)s.done=false;
   state[modalEntry.date]=s;touch(modalEntry.date);
