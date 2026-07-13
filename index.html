@@ -1006,6 +1006,9 @@ async function getOcrWorker(){
     });
   }
   ocrWorker=await Tesseract.createWorker('eng');
+  // PSM 4 = "Einzelne Spalte, variable Textgrößen" — passt zu Phone-Screenshots besser als der Default (Auto),
+  // der bei mehrspaltigen Stat-Kacheln (z.B. Herzfrequenz | Pace nebeneinander) leicht die Lesereihenfolge verwürfelt.
+  try{await ocrWorker.setParameters({tessedit_pageseg_mode:'4'});}catch(e){}
   return ocrWorker;
 }
 function pasteGarminScreenshot(){
@@ -1040,25 +1043,61 @@ async function runOcrImport(blob){
   try{
     const worker=await getOcrWorker();
     st.textContent='Screenshot wird gelesen…';
-    const{data}=await worker.recognize(blob);
+    // blocks:true explizit anfordern — Tesseract.js v6 liefert Zeilen/Positionsdaten nicht mehr standardmäßig
+    const{data}=await worker.recognize(blob,{},{blocks:true});
+    lastOcrText=data.text||'';
     const found=applyOcrResult(data);
-    st.textContent=found.length?'✓ Erkannt: '+found.join(', ')+' — bitte prüfen.':'Keine Werte erkannt — bitte manuell eingeben.';
+    st.innerHTML=(found.length?'✓ Erkannt: '+found.join(', ')+' — bitte prüfen.':'Keine Werte erkannt — bitte manuell eingeben.')+' <a href="#" onclick="toggleOcrRawText(event)" style="color:var(--blue)">Rohtext anzeigen</a>';
     showToast(found.length?'📷 '+found.join(', ')+' erkannt':'Keine Werte erkannt');
   }catch(e){
     st.textContent='✗ Fehler: '+(e.message||'Texterkennung fehlgeschlagen');
     showToast('Screenshot-Import fehlgeschlagen');
   }finally{btn.disabled=false;URL.revokeObjectURL(url);}
 }
+let lastOcrText='';
+function toggleOcrRawText(e){
+  if(e)e.preventDefault();
+  const ex=document.getElementById('ocr-raw-text');
+  if(ex){ex.remove();return;}
+  const st=document.getElementById('ocr-status');
+  const pre=document.createElement('pre');
+  pre.id='ocr-raw-text';
+  pre.style.cssText='white-space:pre-wrap;font-size:10px;color:var(--faint);background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px;margin-top:6px;max-height:140px;overflow:auto';
+  pre.textContent=lastOcrText||'(kein Text)';
+  st.insertAdjacentElement('afterend',pre);
+}
 function ocrNum(s){s=String(s);if(s.includes(',')&&s.includes('.'))s=s.replace(/\./g,'').replace(',','.');else s=s.replace(',','.');return parseFloat(s)||0;}
+// Wählt unter allen Zeilentreffern die "sauberste" (am wenigsten fremde Buchstaben übrig) —
+// verhindert, dass z.B. "5km Erholungslauf" im Aktivitätsnamen fälschlich als Distanzwert gelesen wird
+// statt der echten Werte-Zeile ("3,24 km"), die nach Entfernen des Treffers keine Buchstaben mehr übrig lässt.
+function bestLineMatch(text,regex){
+  const lines=String(text||'').split(/\n+/);
+  let best=null,bestLeftover=Infinity;
+  for(const line of lines){
+    const re=new RegExp(regex.source,regex.flags.replace('g','')+'');
+    const m=re.exec(line);
+    if(!m)continue;
+    const leftover=line.replace(m[0],'').replace(/[^a-zA-ZäöüÄÖÜß]/g,'').length;
+    if(leftover<bestLeftover){bestLeftover=leftover;best=m;}
+  }
+  return best;
+}
 // Zeilen, die wie Datum/Uhrzeit/Tab-Leiste aussehen, nie als Notiz verwenden
 function looksLikeNoise(t){
   return /^\d{1,2}[:.]\d{2}$/.test(t)||/\d+[.,]\d+\s*km/i.test(t)||/\/\s*km/i.test(t)||/bpm/i.test(t)
     ||/^\d{1,2}\.\s*\w+/.test(t)||/übersicht|statistiken|runden|diagramme|ausrüst/i.test(t)||/^\d+\s*\/\s*10$/.test(t);
 }
+// Tesseract v6: Zeilen stecken hierarchisch in blocks→paragraphs→lines, nicht mehr flach in data.lines
+function flattenOcrLines(data){
+  const out=[];
+  for(const b of(data.blocks||[]))for(const p of(b.paragraphs||[]))for(const l of(p.lines||[]))
+    out.push({text:(l.text||'').trim(),h:l.bbox?(l.bbox.y1-l.bbox.y0):0});
+  return out;
+}
 function applyOcrResult(data){
   const text=data.text||'',found=[];
-  const dm=/(\d+[.,]\d+)\s*(km|mi)\b/i.exec(text);
-  const pm=/(\d{1,2})[:.](\d{2})\s*\/\s*(km|mi)\b/i.exec(text);
+  const dm=bestLineMatch(text,/(\d+[.,]\d+)\s*(km|mi)\b/i);
+  const pm=bestLineMatch(text,/(\d{1,2})[:.](\d{2})\s*\/\s*(km|mi)\b/i);
   const rm=/(\d{1,2})\s*\/\s*10\b/.exec(text);
   if(dm){
     let km=ocrNum(dm[1]);if(dm[2].toLowerCase()==='mi')km*=1.60934;
@@ -1074,9 +1113,9 @@ function applyOcrResult(data){
   }
   // Notiz layout-basiert: größte Zeile = Titel, direkt darunter kleinere Nicht-Zahlen-Zeile = Notiz
   const nf=document.getElementById('inp-notes');
-  if(!nf.value.trim()&&Array.isArray(data.lines)&&data.lines.length){
-    const lines=data.lines.map(l=>({text:(l.text||'').trim(),h:l.bbox?(l.bbox.y1-l.bbox.y0):0,y:l.bbox?l.bbox.y0:0}))
-      .filter(l=>l.text&&!looksLikeNoise(l.text));
+  const ocrLines=flattenOcrLines(data);
+  if(!nf.value.trim()&&ocrLines.length){
+    const lines=ocrLines.filter(l=>l.text&&!looksLikeNoise(l.text));
     if(lines.length>=2){
       let titleIdx=0;for(let i=1;i<lines.length;i++)if(lines[i].h>lines[titleIdx].h)titleIdx=i;
       const cand=lines.find((l,i)=>i>titleIdx&&l.h<lines[titleIdx].h&&l.h>0);
